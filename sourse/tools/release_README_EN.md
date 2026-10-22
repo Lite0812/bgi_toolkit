@@ -30,7 +30,6 @@ Choose a tool from the left sidebar, set the input and output paths, then run th
 
 The controls at the bottom left let you switch between Simplified Chinese and English and choose a light, dark, or system theme.
 
-
 ## Command line
 
 For batch processing, use `BGI_Toolkit_cli.exe`. Run this command in a terminal to see the available commands:
@@ -38,6 +37,14 @@ For batch processing, use `BGI_Toolkit_cli.exe`. Run this command in a terminal 
 ```powershell
 .\BGI_Toolkit_cli.exe --help
 ```
+
+## Acknowledgements
+
+Thanks to the following open-source projects for their references and assistance:
+
+- [GARbro](https://github.com/morkt/GARbro)
+- [openbgi](https://github.com/Cytlan/openbgi)
+- [Bgi_asdis](https://github.com/KlparetlR/Bgi_asdis)
 
 ## Source code and licenses
 

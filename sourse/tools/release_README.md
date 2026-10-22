@@ -28,9 +28,7 @@
 
 在左侧选择工具，填好输入文件和输出位置，再执行对应操作。处理进度和结果会显示在下方日志里。
 
-
 界面左下角可以切换简体中文和 English，也可以选择明亮、深色或跟随系统的主题。
-
 
 ## 命令行
 
@@ -39,6 +37,13 @@
 ```powershell
 .\BGI_Toolkit_cli.exe --help
 ```
+## 致谢
+
+感谢以下开源项目提供的参考与帮助：
+
+- [GARbro](https://github.com/morkt/GARbro)
+- [openbgi](https://github.com/Cytlan/openbgi)
+- [Bgi_asdis](https://github.com/KlparetlR/Bgi_asdis)
 
 ## 源码与许可
 
