@@ -37,6 +37,13 @@
 ```powershell
 .\BGI_Toolkit_cli.exe --help
 ```
+## 致谢
+
+感谢以下开源项目提供的参考与帮助：
+
+- [GARbro](https://github.com/morkt/GARbro)
+- [openbgi](https://github.com/Cytlan/openbgi)
+- [Bgi_asdis](https://github.com/KlparetlR/Bgi_asdis)
 
 ## 源码与许可
 
