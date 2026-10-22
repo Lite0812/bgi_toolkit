@@ -1,0 +1,2742 @@
+{
+  "external_functions": [
+    {
+      "prototype": "void ActivateScreenEffectForcedly(bool A)",
+      "aliases": [
+        "f_ActivateScreenEffectForcedly",
+        "f_124"
+      ]
+    },
+    {
+      "prototype": "void AnimateBustshot(long A, char* B, char* C, long D, long E, long F, long G, char* H, char* I, long J, long K, long L, long M, bool N, bool O, long P, long Q, long R, long S, long T, long U, long V, long W, long X, long Y, bool Z, long AA = BSCTRL_DELAY_DEFAULT, char* AB = NULL, long AC = 0, char** AD = NULL, long* AE = NULL)",
+      "aliases": [
+        "f_AnimateBustshot",
+        "f_2cd"
+      ]
+    },
+    {
+      "prototype": "void AnimateSprite(long A, char* B, long C, long D, long E, char* F, long G, long H, long I, long J, long K, long L, bool M, bool N, long O, long P, long Q, long R, bool S)",
+      "aliases": [
+        "f_AnimateSprite",
+        "f_302"
+      ]
+    },
+    {
+      "prototype": "void Blackout(long A, bool B, bool C = TRUE)",
+      "aliases": [
+        "f_Blackout",
+        "f_390"
+      ]
+    },
+    {
+      "prototype": "long CallAnalysis(long A = 500)",
+      "aliases": [
+        "f_CallAnalysis",
+        "f_470"
+      ]
+    },
+    {
+      "prototype": "void CallInputNameWindow()",
+      "aliases": [
+        "f_CallInputNameWindow",
+        "f_10a"
+      ]
+    },
+    {
+      "prototype": "void CallLine(char* A, long B = 150)",
+      "aliases": [
+        "f_CallLine",
+        "f_461"
+      ]
+    },
+    {
+      "prototype": "void CallScenario(char* A)",
+      "aliases": [
+        "f_CallScenario",
+        "f_0f1"
+      ]
+    },
+    {
+      "prototype": "void CallScript(char* A)",
+      "aliases": [
+        "f_CallScript",
+        "f_0f0"
+      ]
+    },
+    {
+      "prototype": "void CallScriptForFButton()",
+      "aliases": [
+        "f_CallScriptForFButton",
+        "f_13a"
+      ]
+    },
+    {
+      "prototype": "void CancelSkipping()",
+      "aliases": [
+        "f_CancelSkipping",
+        "f_119"
+      ]
+    },
+    {
+      "prototype": "void CancelWaitingByDoubleClicking(bool A)",
+      "aliases": [
+        "f_CancelWaitingByDoubleClicking",
+        "f_114"
+      ]
+    },
+    {
+      "prototype": "void ChangeBustshot(long bustshotNo, char* spriteName, char* scriptName = 0, char* labelName = 0, long duration, bool wait, long plannedDelay = -256, char* animationName = 0, long callbackArg = 0, char** callbackLabels = 0, long* callbackValues = 0)",
+      "aliases": [
+        "f_ChangeBustshot",
+        "f_2c6"
+      ]
+    },
+    {
+      "prototype": "void ChangeBustshotEx(long A, char* B, char* C, long D, char* E, long F, bool G, long H = BSCTRL_DELAY_DEFAULT, char* I = NULL, long J = 0, char** K = NULL, long* L = NULL)",
+      "aliases": [
+        "f_ChangeBustshotEx",
+        "f_2c7"
+      ]
+    },
+    {
+      "prototype": "void ChangeCameraAngleOfRainfall(long A, long B, long C, long D)",
+      "aliases": [
+        "f_ChangeCameraAngleOfRainfall",
+        "f_3dc"
+      ]
+    },
+    {
+      "prototype": "void ChangeCaretDesign(char* A = NULL, long B = 2, long C = 0, long D = 0, long E = 0)",
+      "aliases": [
+        "f_ChangeCaretDesign",
+        "f_20e"
+      ]
+    },
+    {
+      "prototype": "void ChangeDesignOfSelecting(long A = (-1), char* B = NULL, char* C = NULL, char* D = NULL, char* E = NULL, char* F = NULL, char* G = NULL)",
+      "aliases": [
+        "f_ChangeDesignOfSelecting",
+        "f_178"
+      ]
+    },
+    {
+      "prototype": "void ChangeOrderOfBustshotToTopmost(long A, long B, long C)",
+      "aliases": [
+        "f_ChangeOrderOfBustshotToTopmost",
+        "f_2d8"
+      ]
+    },
+    {
+      "prototype": "void ChangeOriginPositionOfImageOfBustshot(long A, long B, long C)",
+      "aliases": [
+        "f_ChangeOriginPositionOfImageOfBustshot",
+        "f_2ea"
+      ]
+    },
+    {
+      "prototype": "void ChangeScene(char* A, long B, long C)",
+      "aliases": [
+        "f_ChangeScene",
+        "f_284"
+      ]
+    },
+    {
+      "prototype": "void ChangeToLowercase(char* A, char* B)",
+      "aliases": [
+        "f_ChangeToLowercase",
+        "f_092"
+      ]
+    },
+    {
+      "prototype": "void ChangeVolumeOfBGM(long A, long B, long C)",
+      "aliases": [
+        "f_ChangeVolumeOfBGM",
+        "f_186"
+      ]
+    },
+    {
+      "prototype": "void ChangeVolumeOfStreamingSE(long A, long B, long C)",
+      "aliases": [
+        "f_ChangeVolumeOfStreamingSE",
+        "f_196"
+      ]
+    },
+    {
+      "prototype": "void ChangeVolumeOfStreamingVoice(long A, long B, long C)",
+      "aliases": [
+        "f_ChangeVolumeOfStreamingVoice",
+        "f_19e"
+      ]
+    },
+    {
+      "prototype": "void ChangeWindowColor(long A)",
+      "aliases": [
+        "f_ChangeWindowColor",
+        "f_15c"
+      ]
+    },
+    {
+      "prototype": "void ChangeWindowDesign(char* A = NULL, long B = 0, long C = 0)",
+      "aliases": [
+        "f_ChangeWindowDesign",
+        "f_15d"
+      ]
+    },
+    {
+      "prototype": "void ClearBBS()",
+      "aliases": [
+        "f_ClearBBS",
+        "f_441"
+      ]
+    },
+    {
+      "prototype": "void ClearMemory(void* A, long B)",
+      "aliases": [
+        "f_ClearMemory",
+        "f_081"
+      ]
+    },
+    {
+      "prototype": "void ClearMessage()",
+      "aliases": [
+        "f_ClearMessage",
+        "f_141"
+      ]
+    },
+    {
+      "prototype": "void ClearNextSelectingJumped()",
+      "aliases": [
+        "f_ClearNextSelectingJumped",
+        "f_106"
+      ]
+    },
+    {
+      "prototype": "bool CompareMemory(void* A, void* B, long C)",
+      "aliases": [
+        "f_CompareMemory",
+        "f_083"
+      ]
+    },
+    {
+      "prototype": "bool CompareStrings(char* A, char* B)",
+      "aliases": [
+        "f_CompareStrings",
+        "f_095"
+      ]
+    },
+    {
+      "prototype": "void CompleteBGControlling()",
+      "aliases": [
+        "f_CompleteBGControlling",
+        "f_25e"
+      ]
+    },
+    {
+      "prototype": "void CompleteSpriteControlling(long A)",
+      "aliases": [
+        "f_CompleteSpriteControlling",
+        "f_31e"
+      ]
+    },
+    {
+      "prototype": "void ControlMotionOfBG(long A, ST_MtnCtrlElement* B, long C)",
+      "aliases": [
+        "f_ControlMotionOfBG",
+        "f_258"
+      ]
+    },
+    {
+      "prototype": "void ControlMotionOfSprite(long A, long B, ST_MtnCtrlElement* C, long D)",
+      "aliases": [
+        "f_ControlMotionOfSprite",
+        "f_30e"
+      ]
+    },
+    {
+      "prototype": "long ConvertBooleanToNumber(bool A)",
+      "aliases": [
+        "f_ConvertBooleanToNumber",
+        "f_0aa"
+      ]
+    },
+    {
+      "prototype": "long ConvertSpeedToCount(long deltaX, long deltaY, long mode, long speed)",
+      "aliases": [
+        "f_ConvertSpeedToCount",
+        "f_210"
+      ]
+    },
+    {
+      "prototype": "long ConvertStringsToNumber(char* A)",
+      "aliases": [
+        "f_ConvertStringsToNumber",
+        "f_0a8"
+      ]
+    },
+    {
+      "prototype": "long ConvertXNRToNumber(long A, long B)",
+      "aliases": [
+        "f_ConvertXNRToNumber",
+        "f_0ac"
+      ]
+    },
+    {
+      "prototype": "void CopyMemory(void* A, void* B, long C)",
+      "aliases": [
+        "f_CopyMemory",
+        "f_080"
+      ]
+    },
+    {
+      "prototype": "void CopyStrings(char* A, char* B)",
+      "aliases": [
+        "f_CopyStrings",
+        "f_090"
+      ]
+    },
+    {
+      "prototype": "void DisableEffector(long A, bool B)",
+      "aliases": [
+        "f_DisableEffector",
+        "f_358"
+      ]
+    },
+    {
+      "prototype": "void DisableGradation(long A, bool B, bool C = TRUE)",
+      "aliases": [
+        "f_DisableGradation",
+        "f_348"
+      ]
+    },
+    {
+      "prototype": "void DisableItem(long A)",
+      "aliases": [
+        "f_DisableItem",
+        "f_166"
+      ]
+    },
+    {
+      "prototype": "void DisableJumping()",
+      "aliases": [
+        "f_DisableJumping",
+        "f_117"
+      ]
+    },
+    {
+      "prototype": "void DisableLabelJumping()",
+      "aliases": [
+        "f_DisableLabelJumping",
+        "f_137"
+      ]
+    },
+    {
+      "prototype": "void DisableParticleScreen(long A)",
+      "aliases": [
+        "f_DisableParticleScreen",
+        "f_3c1"
+      ]
+    },
+    {
+      "prototype": "void DisableWindow(void)",
+      "aliases": [
+        "f_DisableWindow",
+        "f_151"
+      ]
+    },
+    {
+      "prototype": "void DisableWindowEx(long A)",
+      "aliases": [
+        "f_DisableWindowEx",
+        "f_153"
+      ]
+    },
+    {
+      "prototype": "void DisplayCapturedImage(long A = -1)",
+      "aliases": [
+        "f_DisplayCapturedImage",
+        "f_2a0"
+      ]
+    },
+    {
+      "prototype": "void DisplayIP()",
+      "aliases": [
+        "f_DisplayIP",
+        "f_0ff"
+      ]
+    },
+    {
+      "prototype": "void DisplayNumber(long A)",
+      "aliases": [
+        "f_DisplayNumber",
+        "f_0f8"
+      ]
+    },
+    {
+      "prototype": "void DisplayStrings(char* A)",
+      "aliases": [
+        "f_DisplayStrings",
+        "f_0f9"
+      ]
+    },
+    {
+      "prototype": "void DontClearName()",
+      "aliases": [
+        "f_DontClearName",
+        "f_148"
+      ]
+    },
+    {
+      "prototype": "void DontRegisterTextToHistory(bool A)",
+      "aliases": [
+        "f_DontRegisterTextToHistory",
+        "f_144"
+      ]
+    },
+    {
+      "prototype": "void DrawBG(char* A, long B, bool C)",
+      "aliases": [
+        "f_DrawBG",
+        "f_240"
+      ]
+    },
+    {
+      "prototype": "void DrawBGEx(char* A, long B, char* C, long D, long E, bool F)",
+      "aliases": [
+        "f_DrawBGEx",
+        "f_242"
+      ]
+    },
+    {
+      "prototype": "void DrawBGWithMask(char* A, char* B, long C, long D, bool E)",
+      "aliases": [
+        "f_DrawBGWithMask",
+        "f_241"
+      ]
+    },
+    {
+      "prototype": "void DrawBustshot(long A, char* B, char* C, char* D, long E, long F, long G, bool H, long I, long J, long K, long L, long M, long N, long O, long P, long Q, bool R, long S = BSCTRL_DELAY_DEFAULT, char* T = NULL, long U = 0, char** V = NULL, long* W = NULL)",
+      "aliases": [
+        "f_DrawBustshot",
+        "f_2c0"
+      ]
+    },
+    {
+      "prototype": "void DrawBustshotEx(long A, char* B, char* C, long D, char* E, long F, long G, long H, bool I, bool J, long K, long L, long M, long N, long O, long P, long Q, long R, long S, long T, bool U, long V = BSCTRL_DELAY_DEFAULT, char* W = NULL, long X = 0, char** Y = NULL, long* Z = NULL)",
+      "aliases": [
+        "f_DrawBustshotEx",
+        "f_2c1"
+      ]
+    },
+    {
+      "prototype": "void DrawBustshotWithFiltering(long A, char* B, char* C, long D, char* E, char* F, long G, long H, long I, bool J, long K, long L, long M, long N, long O, long P, long Q, long R, bool S, long T = BSCTRL_DELAY_DEFAULT, char* U = NULL, long V = 0, char** W = NULL, long* X = NULL)",
+      "aliases": [
+        "f_DrawBustshotWithFiltering",
+        "f_2ce"
+      ]
+    },
+    {
+      "prototype": "void DrawFace(char* A, long B, bool C)",
+      "aliases": [
+        "f_DrawFace",
+        "f_2d0"
+      ]
+    },
+    {
+      "prototype": "void DrawFilm(long A, long B, long C, long D, long E, long F, long G, bool H, bool I = TRUE)",
+      "aliases": [
+        "f_DrawFilm",
+        "f_380"
+      ]
+    },
+    {
+      "prototype": "void DrawLineStamp(char* A, char* B, long C = TRUE)",
+      "aliases": [
+        "f_DrawLineStamp",
+        "f_464"
+      ]
+    },
+    {
+      "prototype": "void DrawScene(char* A, long B)",
+      "aliases": [
+        "f_DrawScene",
+        "f_280"
+      ]
+    },
+    {
+      "prototype": "void DrawSceneByVirtualBG(char* A, char* B, long C, long D, char* E, long F, long G, long H)",
+      "aliases": [
+        "f_DrawSceneByVirtualBG",
+        "f_290"
+      ]
+    },
+    {
+      "prototype": "void DrawSceneWithMask(char* A, char* B, long C, long D, long E)",
+      "aliases": [
+        "f_DrawSceneWithMask",
+        "f_281"
+      ]
+    },
+    {
+      "prototype": "void DrawSprite(long A, char* B, char* C, long D, long E, long F, long G, long H, long I, bool J, bool K, long L, long M, long N, long O, bool P)",
+      "aliases": [
+        "f_DrawSprite",
+        "f_300"
+      ]
+    },
+    {
+      "prototype": "void DrawSpriteEx(long A, char* B, long C, char* D, long E, long F, long G, long H, long I, long J, long K, long L, bool M, bool N, long O, long P, long Q, long R, bool S)",
+      "aliases": [
+        "f_DrawSpriteEx",
+        "f_301"
+      ]
+    },
+    {
+      "prototype": "void DrawSpriteExDelay(...)",
+      "aliases": [
+        "f_DrawSpriteExDelay",
+        "f_310"
+      ]
+    },
+    {
+      "prototype": "void DrawSpriteForChainedBitmap(long A, long B, char** C, long D, char* E, long F, long G, long H, long I, long J, long K, bool L, bool M, long N, long O, long P, long Q, bool R)",
+      "aliases": [
+        "f_DrawSpriteForChainedBitmap",
+        "f_303"
+      ]
+    },
+    {
+      "prototype": "void DrawSpriteWithFiltering(long A, char* B, char* C, long D, long E, long F, bool G, bool H, long I, long J, long K, long L, bool M)",
+      "aliases": [
+        "f_DrawSpriteWithFiltering",
+        "f_304"
+      ]
+    },
+    {
+      "prototype": "void DumpMemory(char* A, void* B, long C)",
+      "aliases": [
+        "f_DumpMemory",
+        "f_0fa"
+      ]
+    },
+    {
+      "prototype": "void EnableCrossGradation(long A, long B, long C, bool D, bool E = TRUE)",
+      "aliases": [
+        "f_EnableCrossGradation",
+        "f_342"
+      ]
+    },
+    {
+      "prototype": "void EnableFaceSynchronizing(bool A)",
+      "aliases": [
+        "f_EnableFaceSynchronizing",
+        "f_2d5"
+      ]
+    },
+    {
+      "prototype": "void EnableHorizontalGradation(long A, long B, long C, bool D, bool E = TRUE)",
+      "aliases": [
+        "f_EnableHorizontalGradation",
+        "f_340"
+      ]
+    },
+    {
+      "prototype": "void EnableItem(long A)",
+      "aliases": [
+        "f_EnableItem",
+        "f_165"
+      ]
+    },
+    {
+      "prototype": "void EnableJumping(long A = -1)",
+      "aliases": [
+        "f_EnableJumping",
+        "f_116"
+      ]
+    },
+    {
+      "prototype": "void EnableLabelJumping(label A, long B)",
+      "aliases": [
+        "f_EnableLabelJumping",
+        "f_136"
+      ]
+    },
+    {
+      "prototype": "void EnableParticleScreen(long A, long B)",
+      "aliases": [
+        "f_EnableParticleScreen",
+        "f_3c0"
+      ]
+    },
+    {
+      "prototype": "void EnablePerformanceMeasurement(bool A)",
+      "aliases": [
+        "f_EnablePerformanceMeasurement",
+        "f_134"
+      ]
+    },
+    {
+      "prototype": "void EnablePerspectiveCollectionOfBustshot(long A, bool B)",
+      "aliases": [
+        "f_EnablePerspectiveCollectionOfBustshot",
+        "f_2f0"
+      ]
+    },
+    {
+      "prototype": "void EnableVerticalGradation(long A, long B, long C, bool D, bool E = TRUE)",
+      "aliases": [
+        "f_EnableVerticalGradation",
+        "f_341"
+      ]
+    },
+    {
+      "prototype": "void EnableWindow()",
+      "aliases": [
+        "f_EnableWindow",
+        "f_150"
+      ]
+    },
+    {
+      "prototype": "void EnableWindowEx(long A)",
+      "aliases": [
+        "f_EnableWindowEx",
+        "f_152"
+      ]
+    },
+    {
+      "prototype": "void EndLine(long A = 150)",
+      "aliases": [
+        "f_EndLine",
+        "f_462"
+      ]
+    },
+    {
+      "prototype": "void EnlargeBG(long A, long B, long C, long D, bool E, long F, long G, long H, long I, bool J)",
+      "aliases": [
+        "f_EnlargeBG",
+        "f_24c"
+      ]
+    },
+    {
+      "prototype": "void EnlargeScreen(long A, long B, long C, long D, bool E, long F, bool G)",
+      "aliases": [
+        "f_EnlargeScreen",
+        "f_350"
+      ]
+    },
+    {
+      "prototype": "void ExecuteLine(long A = 150)",
+      "aliases": [
+        "f_ExecuteLine",
+        "f_463"
+      ]
+    },
+    {
+      "prototype": "bool ExecutePlannedControl(bool wait)",
+      "aliases": [
+        "f_ExecutePlannedControl",
+        "f_2dc"
+      ]
+    },
+    {
+      "prototype": "long ExecuteSaving(long saveSlot, char* comment = 0, char* sceneName = 0, char* thumbnail = 0)",
+      "aliases": [
+        "f_ExecuteSaving",
+        "f_10e"
+      ]
+    },
+    {
+      "prototype": "long ExPillow(char* A)",
+      "aliases": [
+        "f_ExPillow",
+        "f_17d"
+      ]
+    },
+    {
+      "prototype": "void FadeBG(long A, bool B)",
+      "aliases": [
+        "f_FadeBG",
+        "f_244"
+      ]
+    },
+    {
+      "prototype": "void FadeBGWithMask(char* A, long B, long C, bool D)",
+      "aliases": [
+        "f_FadeBGWithMask",
+        "f_245"
+      ]
+    },
+    {
+      "prototype": "void FadeBustshot(long bustshotNo, bool fadeIn = 0, long arg2 = 0, long arg3 = 0, long arg4 = 0, long arg5 = 0, long duration, bool wait = 0, long plannedDelay = -256)",
+      "aliases": [
+        "f_FadeBustshot",
+        "f_2c8"
+      ]
+    },
+    {
+      "prototype": "void FadeBustshotWithFiltering(long A, char* B, long C, bool D, long E, long F, long G, bool H, long I = BSCTRL_DELAY_DEFAULT)",
+      "aliases": [
+        "f_FadeBustshotWithFiltering",
+        "f_2cf"
+      ]
+    },
+    {
+      "prototype": "void FadeFace(long A, bool B)",
+      "aliases": [
+        "f_FadeFace",
+        "f_2d2"
+      ]
+    },
+    {
+      "prototype": "void FadeFilm(long A, bool B, bool C = TRUE)",
+      "aliases": [
+        "f_FadeFilm",
+        "f_388"
+      ]
+    },
+    {
+      "prototype": "void FadeOutBGM(long channel, long fadeFrames, bool wait = 0)",
+      "aliases": [
+        "f_FadeOutBGM",
+        "f_185"
+      ]
+    },
+    {
+      "prototype": "void FadeOutSE(long channel, long fadeFrames)",
+      "aliases": [
+        "f_FadeOutSE",
+        "f_1a3"
+      ]
+    },
+    {
+      "prototype": "void FadeOutStreamingSE(long channel, long fadeFrames, bool wait = 0)",
+      "aliases": [
+        "f_FadeOutStreamingSE",
+        "f_195"
+      ]
+    },
+    {
+      "prototype": "void FadeOutStreamingVoice(long channel, long fadeFrames, bool wait = 0)",
+      "aliases": [
+        "f_FadeOutStreamingVoice",
+        "f_19d"
+      ]
+    },
+    {
+      "prototype": "void FadeOutVoice(long channel, long fadeFrames)",
+      "aliases": [
+        "f_FadeOutVoice",
+        "f_1ab"
+      ]
+    },
+    {
+      "prototype": "void FadeScene(long A)",
+      "aliases": [
+        "f_FadeScene",
+        "f_288"
+      ]
+    },
+    {
+      "prototype": "void FadeSceneEx(long A, long B)",
+      "aliases": [
+        "f_FadeSceneEx",
+        "f_28a"
+      ]
+    },
+    {
+      "prototype": "void FadeSceneWithMask(char* A, long B, long C, long D)",
+      "aliases": [
+        "f_FadeSceneWithMask",
+        "f_289"
+      ]
+    },
+    {
+      "prototype": "void FadeSprite(long A, long B, bool C)",
+      "aliases": [
+        "f_FadeSprite",
+        "f_306"
+      ]
+    },
+    {
+      "prototype": "void FadeSpriteDelay(...)",
+      "aliases": [
+        "f_FadeSpriteDelay",
+        "f_311"
+      ]
+    },
+    {
+      "prototype": "void FadeSpriteWithFiltering(long A, char* B, long C, long D, bool E)",
+      "aliases": [
+        "f_FadeSpriteWithFiltering",
+        "f_307"
+      ]
+    },
+    {
+      "prototype": "void FillMemory(void* A, long B, long C)",
+      "aliases": [
+        "f_FillMemory",
+        "f_082"
+      ]
+    },
+    {
+      "prototype": "void FixImageSizeOfBustshot(long A, bool B)",
+      "aliases": [
+        "f_FixImageSizeOfBustshot",
+        "f_2e9"
+      ]
+    },
+    {
+      "prototype": "void GenerateStringsFromNumber(char* A, long B, long C)",
+      "aliases": [
+        "f_GenerateStringsFromNumber",
+        "f_098"
+      ]
+    },
+    {
+      "prototype": "bool GetAngleAfterProcessingOfBustshot(ST_Angle* A, long B)",
+      "aliases": [
+        "f_GetAngleAfterProcessingOfBustshot",
+        "f_2ee"
+      ]
+    },
+    {
+      "prototype": "bool GetAngleOfBustshot(ST_Angle* angleOut, long bustshotNo)",
+      "aliases": [
+        "f_GetAngleOfBustshot",
+        "f_2e2"
+      ]
+    },
+    {
+      "prototype": "long GetExecutionMode()",
+      "aliases": [
+        "f_GetExecutionMode",
+        "f_12f"
+      ]
+    },
+    {
+      "prototype": "bool GetGlobalFlag(long flagIndex)",
+      "aliases": [
+        "f_GetGlobalFlag",
+        "f_0e7"
+      ]
+    },
+    {
+      "prototype": "bool GetImageNameOfBustshot(char* A, long B)",
+      "aliases": [
+        "f_GetImageNameOfBustshot",
+        "f_2e5"
+      ]
+    },
+    {
+      "prototype": "bool GetImageSizeOfBitmap(long* A, long B, char* C, char* D, long E = 0, long F = 0, long G = 0, char* H = NULL, long I = 0, char** J = NULL)",
+      "aliases": [
+        "f_GetImageSizeOfBitmap",
+        "f_222"
+      ]
+    },
+    {
+      "prototype": "bool GetImageSizeOfBustshot(long* A, long B)",
+      "aliases": [
+        "f_GetImageSizeOfBustshot",
+        "f_2e4"
+      ]
+    },
+    {
+      "prototype": "long GetLengthOfStrings(char* A)",
+      "aliases": [
+        "f_GetLengthOfStrings",
+        "f_094"
+      ]
+    },
+    {
+      "prototype": "bool GetLocalFlag(long A)",
+      "aliases": [
+        "f_GetLocalFlag",
+        "f_0e5"
+      ]
+    },
+    {
+      "prototype": "bool GetLoopOfBW(char* A)",
+      "aliases": [
+        "f_GetLoopOfBW",
+        "f_18f"
+      ]
+    },
+    {
+      "prototype": "bool GetOriginPositionOfBustshot(ST_Point* originOut, long bustshotNo)",
+      "aliases": [
+        "f_GetOriginPositionOfBustshot",
+        "f_2e1"
+      ]
+    },
+    {
+      "prototype": "bool GetPlannedPositionOfBustshot(ST_Vector* A, long B)",
+      "aliases": [
+        "f_GetPlannedPositionOfBustshot",
+        "f_2f4"
+      ]
+    },
+    {
+      "prototype": "char* GetPointerToLocalShortStrings(long A)",
+      "aliases": [
+        "f_GetPointerToLocalShortStrings",
+        "f_0ea"
+      ]
+    },
+    {
+      "prototype": "char* GetPointerToLocalStrings(long A)",
+      "aliases": [
+        "f_GetPointerToLocalStrings",
+        "f_0e8"
+      ]
+    },
+    {
+      "prototype": "bool GetPositionAfterProcessingOfBustshot(ST_Vector* A, long B)",
+      "aliases": [
+        "f_GetPositionAfterProcessingOfBustshot",
+        "f_2ec"
+      ]
+    },
+    {
+      "prototype": "void GetPositionOfBG(ST_Vector* A)",
+      "aliases": [
+        "f_GetPositionOfBG",
+        "f_266"
+      ]
+    },
+    {
+      "prototype": "bool GetPositionOfBustshot(ST_Vector* positionOut, long bustshotNo)",
+      "aliases": [
+        "f_GetPositionOfBustshot",
+        "f_2e0"
+      ]
+    },
+    {
+      "prototype": "void GetPositionOfMouseCursor(ST_Vector* A)",
+      "aliases": [
+        "f_GetPositionOfMouseCursor",
+        "f_102"
+      ]
+    },
+    {
+      "prototype": "void GetPositionOfSight(ST_Vector* A)",
+      "aliases": [
+        "f_GetPositionOfSight",
+        "f_22a"
+      ]
+    },
+    {
+      "prototype": "bool GetPositionOfSprite(ST_Vector* A, long B)",
+      "aliases": [
+        "f_GetPositionOfSprite",
+        "f_320"
+      ]
+    },
+    {
+      "prototype": "void GetPrioritiesOfAllBustshots(long* A)",
+      "aliases": [
+        "f_GetPrioritiesOfAllBustshots",
+        "f_2e7"
+      ]
+    },
+    {
+      "prototype": "long GetRandomNumber(long maxValue)",
+      "aliases": [
+        "f_GetRandomNumber",
+        "f_0a0"
+      ]
+    },
+    {
+      "prototype": "bool GetRegisteredStrings(char* A, long B, long C, long D, long E)",
+      "aliases": [
+        "f_GetRegisteredStrings",
+        "f_0ec"
+      ]
+    },
+    {
+      "prototype": "void GetResultOfPerformanceMeasurement(long* A, long B)",
+      "aliases": [
+        "f_GetResultOfPerformanceMeasurement",
+        "f_135"
+      ]
+    },
+    {
+      "prototype": "long GetStringsPartially(char* A, char* B, long C, long D)",
+      "aliases": [
+        "f_GetStringsPartially",
+        "f_099"
+      ]
+    },
+    {
+      "prototype": "long GetTickCount()",
+      "aliases": [
+        "f_GetTickCount",
+        "f_101"
+      ]
+    },
+    {
+      "prototype": "void GetTime(ST_SystemTime* systemTimeOut)",
+      "aliases": [
+        "f_GetTime",
+        "f_100"
+      ]
+    },
+    {
+      "prototype": "bool GetValidityOfGraphicsEffect()",
+      "aliases": [
+        "f_GetValidityOfGraphicsEffect",
+        "f_128"
+      ]
+    },
+    {
+      "prototype": "void GritScreen(long A, bool B, long C, bool D)",
+      "aliases": [
+        "f_GritScreen",
+        "f_351"
+      ]
+    },
+    {
+      "prototype": "void HideBBS(long A = 150)",
+      "aliases": [
+        "f_HideBBS",
+        "f_444"
+      ]
+    },
+    {
+      "prototype": "void HideWindowWhenIconSelecting(bool A)",
+      "aliases": [
+        "f_HideWindowWhenIconSelecting",
+        "f_16c"
+      ]
+    },
+    {
+      "prototype": "void HideWindowWhenItemSelecting(bool A)",
+      "aliases": [
+        "f_HideWindowWhenItemSelecting",
+        "f_167"
+      ]
+    },
+    {
+      "prototype": "void InitializeSelectedItem()",
+      "aliases": [
+        "f_InitializeSelectedItem",
+        "f_164"
+      ]
+    },
+    {
+      "prototype": "void InitializeTiming(long A)",
+      "aliases": [
+        "f_InitializeTiming",
+        "f_112"
+      ]
+    },
+    {
+      "prototype": "void InspectUsageConditionOfContents(bool* A, long B, char** C)",
+      "aliases": [
+        "f_InspectUsageConditionOfContents",
+        "f_405"
+      ]
+    },
+    {
+      "prototype": "bool IsBGMPlaying(long A)",
+      "aliases": [
+        "f_IsBGMPlaying",
+        "f_18a"
+      ]
+    },
+    {
+      "prototype": "bool IsDefaultName(long A)",
+      "aliases": [
+        "f_IsDefaultName",
+        "f_107"
+      ]
+    },
+    {
+      "prototype": "bool IsNextSelectingJumped()",
+      "aliases": [
+        "f_IsNextSelectingJumped",
+        "f_105"
+      ]
+    },
+    {
+      "prototype": "bool IsRegisteredLabel(char* A)",
+      "aliases": [
+        "f_IsRegisteredLabel",
+        "f_0f7"
+      ]
+    },
+    {
+      "prototype": "bool IsSEPlaying(long A)",
+      "aliases": [
+        "f_IsSEPlaying",
+        "f_18d"
+      ]
+    },
+    {
+      "prototype": "bool IsSkippingActive()",
+      "aliases": [
+        "f_IsSkippingActive",
+        "f_12c"
+      ]
+    },
+    {
+      "prototype": "bool IsStreamingSEPlaying(long A)",
+      "aliases": [
+        "f_IsStreamingSEPlaying",
+        "f_18b"
+      ]
+    },
+    {
+      "prototype": "bool IsStreamingVoicePlaying(long A)",
+      "aliases": [
+        "f_IsStreamingVoicePlaying",
+        "f_18c"
+      ]
+    },
+    {
+      "prototype": "bool IsVoicePlaying(long A)",
+      "aliases": [
+        "f_IsVoicePlaying",
+        "f_18e"
+      ]
+    },
+    {
+      "prototype": "void JumpScript(char* A)",
+      "aliases": [
+        "f_JumpScript",
+        "f_0f3"
+      ]
+    },
+    {
+      "prototype": "void JumpScriptEx(char* A)",
+      "aliases": [
+        "f_JumpScriptEx",
+        "f_0d0"
+      ]
+    },
+    {
+      "prototype": "void LinkToSite(char* A, long B, long C, long D, long E, long F)",
+      "aliases": [
+        "f_LinkToSite",
+        "f_10f"
+      ]
+    },
+    {
+      "prototype": "void LoadBBS(long A)",
+      "aliases": [
+        "f_LoadBBS",
+        "f_443"
+      ]
+    },
+    {
+      "prototype": "long LoadValueFromGlobalWork(long globalIndex)",
+      "aliases": [
+        "f_LoadValueFromGlobalWork",
+        "f_0e3"
+      ]
+    },
+    {
+      "prototype": "long LoadValueFromLocalWork(long A)",
+      "aliases": [
+        "f_LoadValueFromLocalWork",
+        "f_0e1"
+      ]
+    },
+    {
+      "prototype": "void MergeStrings(char* A, char* B, char* C)",
+      "aliases": [
+        "f_MergeStrings",
+        "f_091"
+      ]
+    },
+    {
+      "prototype": "void Monochrome(long A, bool B, bool C = TRUE)",
+      "aliases": [
+        "f_Monochrome",
+        "f_393"
+      ]
+    },
+    {
+      "prototype": "void MoveBustshot(long A, char* B, char* C, char* D, long E, long F, long G, long H, long I, bool J, long K = BSCTRL_DELAY_DEFAULT, char* L = NULL, long M = 0, char** N = NULL, long* O = NULL)",
+      "aliases": [
+        "f_MoveBustshot",
+        "f_2c2"
+      ]
+    },
+    {
+      "prototype": "void MoveBustshotEx(long bustshotNo, char* scriptName = 0, char* labelName = 0, long blendMode = 0, char* animationName = 0, long x, long y, long z, long alpha = 0, long angle, long delay = -1, long arg11 = 0, long arg12 = 0, long frameCount, bool wait, long plannedDelay = -256, char* callbackScript = 0, long callbackArg = 0, char** callbackLabels = 0, long* callbackValues = 0)",
+      "aliases": [
+        "f_MoveBustshotEx",
+        "f_2c3"
+      ]
+    },
+    {
+      "prototype": "void MoveBustshotRelatively(long A, long B, long C, long D, long E, long F, long G, long H, long I, long J, bool K, bool L, long M = BSCTRL_DELAY_DEFAULT)",
+      "aliases": [
+        "f_MoveBustshotRelatively",
+        "f_2cb"
+      ]
+    },
+    {
+      "prototype": "void MoveSight(long A, long B, long C, long D, bool E)",
+      "aliases": [
+        "f_MoveSight",
+        "f_228"
+      ]
+    },
+    {
+      "prototype": "void MoveSprite(long A, long B, long C, long D, long E, long F, long G, long H, long I, bool J)",
+      "aliases": [
+        "f_MoveSprite",
+        "f_308"
+      ]
+    },
+    {
+      "prototype": "void MoveSpriteEx(long A, long B, ST_Vector* C, long D, long E, long F, long G, long H, long I, long J, bool K)",
+      "aliases": [
+        "f_MoveSpriteEx",
+        "f_309"
+      ]
+    },
+    {
+      "prototype": "void Negative(long A, bool B, bool C = TRUE)",
+      "aliases": [
+        "f_Negative",
+        "f_394"
+      ]
+    },
+    {
+      "prototype": "void NotifyOfFunctionName(char* A)",
+      "aliases": [
+        "f_NotifyOfFunctionName",
+        "f_0fb"
+      ]
+    },
+    {
+      "prototype": "void NotifyOfLineCount(char* A, long B)",
+      "aliases": [
+        "f_NotifyOfLineCount",
+        "f_0fe"
+      ]
+    },
+    {
+      "prototype": "void OpenURL(char* A)",
+      "aliases": [
+        "f_OpenURL",
+        "f_4a0"
+      ]
+    },
+    {
+      "prototype": "void OptimizePositionOfBG(bool B)",
+      "aliases": [
+        "f_OptimizePositionOfBG",
+        "f_268"
+      ]
+    },
+    {
+      "prototype": "void OptimizePositionOfBustshot(long A, bool B)",
+      "aliases": [
+        "f_OptimizePositionOfBustshot",
+        "f_2e8"
+      ]
+    },
+    {
+      "prototype": "void OptimizePositionOfSprite(long A, bool B)",
+      "aliases": [
+        "f_OptimizePositionOfSprite",
+        "f_328"
+      ]
+    },
+    {
+      "prototype": "void OutputDebugLog(char* text, ...)",
+      "aliases": [
+        "f_OutputDebugLog",
+        "f_0c0"
+      ]
+    },
+    {
+      "prototype": "void PauseBGM(long A, bool B, long C, bool D)",
+      "aliases": [
+        "f_PauseBGM",
+        "f_187"
+      ]
+    },
+    {
+      "prototype": "void PauseStreamingSE(long A, bool B, long C, bool D)",
+      "aliases": [
+        "f_PauseStreamingSE",
+        "f_197"
+      ]
+    },
+    {
+      "prototype": "void PauseStreamingVoice(long A, bool B, long C, bool D)",
+      "aliases": [
+        "f_PauseStreamingVoice",
+        "f_19f"
+      ]
+    },
+    {
+      "prototype": "void PlayBGM(long A, char* B, long C, long D)",
+      "aliases": [
+        "f_PlayBGM",
+        "f_180"
+      ]
+    },
+    {
+      "prototype": "void PlayDividedBGM(long A, char* B, char* C, bool D, long E, long F)",
+      "aliases": [
+        "f_PlayDividedBGM",
+        "f_181"
+      ]
+    },
+    {
+      "prototype": "void PlayDividedStreamingSE(long channel, char* streamName, char* streamName, bool loop, long leftVolume, long rightVolume, long fadeFrames)",
+      "aliases": [
+        "f_PlayDividedStreamingSE",
+        "f_191"
+      ]
+    },
+    {
+      "prototype": "void PlayDividedStreamingVoice(long A, char* B, char* C, bool D, long E, long F)",
+      "aliases": [
+        "f_PlayDividedStreamingVoice",
+        "f_199"
+      ]
+    },
+    {
+      "prototype": "void PlayMovie(char* A, long B, long C)",
+      "aliases": [
+        "f_PlayMovie",
+        "f_1bf"
+      ]
+    },
+    {
+      "prototype": "void PlaySE(long A, char* B, long C, long D)",
+      "aliases": [
+        "f_PlaySE",
+        "f_1a0"
+      ]
+    },
+    {
+      "prototype": "void PlaySEsSequentially(long A, long B, ST_SAudioCtrlElement* C, long D)",
+      "aliases": [
+        "f_PlaySEsSequentially",
+        "f_1a6"
+      ]
+    },
+    {
+      "prototype": "void PlaySESx(char* A, long B)",
+      "aliases": [
+        "f_PlaySESx",
+        "f_1a1"
+      ]
+    },
+    {
+      "prototype": "void PlayStreamingSE(long A, char* B, long C, long D, long E)",
+      "aliases": [
+        "f_PlayStreamingSE",
+        "f_190"
+      ]
+    },
+    {
+      "prototype": "void PlayStreamingVoice(long A, char* B, long C, long D)",
+      "aliases": [
+        "f_PlayStreamingVoice",
+        "f_198"
+      ]
+    },
+    {
+      "prototype": "void PlayVoice(long A, char* B, long C, long D, bool E = TRUE)",
+      "aliases": [
+        "f_PlayVoice",
+        "f_1a8"
+      ]
+    },
+    {
+      "prototype": "void PlayVoiceSx(char* A)",
+      "aliases": [
+        "f_PlayVoiceSx",
+        "f_1a9"
+      ]
+    },
+    {
+      "prototype": "void PreloadBitmap(char* A)",
+      "aliases": [
+        "f_PreloadBitmap",
+        "f_220"
+      ]
+    },
+    {
+      "prototype": "void PrintMessage(char* A, char* B, bool C, bool D, bool E)",
+      "aliases": [
+        "f_PrintMessage",
+        "f_140"
+      ]
+    },
+    {
+      "prototype": "void RegisterBBS(long A, char* B, char* C, char* D, long E = -1)",
+      "aliases": [
+        "f_RegisterBBS",
+        "f_440"
+      ]
+    },
+    {
+      "prototype": "void RegisterCallableScriptWhenChecking(char* A)",
+      "aliases": [
+        "f_RegisterCallableScriptWhenChecking",
+        "f_4b8"
+      ]
+    },
+    {
+      "prototype": "void RegisterFirstNameForRandomSelection(char* A)",
+      "aliases": [
+        "f_RegisterFirstNameForRandomSelection",
+        "f_448"
+      ]
+    },
+    {
+      "prototype": "void RegisterLabel(char* A)",
+      "aliases": [
+        "f_RegisterLabel",
+        "f_0f6"
+      ]
+    },
+    {
+      "prototype": "void RegisterLastNameForRandomSelection(char* A)",
+      "aliases": [
+        "f_RegisterLastNameForRandomSelection",
+        "f_449"
+      ]
+    },
+    {
+      "prototype": "void RegisterTextToHistory(char* A, char* B)",
+      "aliases": [
+        "f_RegisterTextToHistory",
+        "f_143"
+      ]
+    },
+    {
+      "prototype": "void RelateCharacterNameAndPrefixOfBustshot(char* A, char* B)",
+      "aliases": [
+        "f_RelateCharacterNameAndPrefixOfBustshot",
+        "f_2d4"
+      ]
+    },
+    {
+      "prototype": "void RelateCharacterNameToSynchronizedVoice(char* A, char* B)",
+      "aliases": [
+        "f_RelateCharacterNameToSynchronizedVoice",
+        "f_1b5"
+      ]
+    },
+    {
+      "prototype": "void RequestToPlaySynchronizedVoice(char* A)",
+      "aliases": [
+        "f_RequestToPlaySynchronizedVoice",
+        "f_1b2"
+      ]
+    },
+    {
+      "prototype": "void RestrainSynchronizedVoicePlaying()",
+      "aliases": [
+        "f_RestrainSynchronizedVoicePlaying",
+        "f_1b1"
+      ]
+    },
+    {
+      "prototype": "void RippleScreen(long A, long B, long C, long D, long E, bool F, long G, bool H)",
+      "aliases": [
+        "f_RippleScreen",
+        "f_352"
+      ]
+    },
+    {
+      "prototype": "void RotateBG(long A, long B, long C, long D, long E, long F, long G, bool H, long I, long J, long K, long L, long M, bool N)",
+      "aliases": [
+        "f_RotateBG",
+        "f_24d"
+      ]
+    },
+    {
+      "prototype": "void ScrollBG(char* A, long B, long C, long D, long E, long F, long G, long H, bool I, long J, bool K)",
+      "aliases": [
+        "f_ScrollBG",
+        "f_248"
+      ]
+    },
+    {
+      "prototype": "void ScrollBustshotContinuously(long A, long B, long C, bool D, long E = BSCTRL_DELAY_DEFAULT)",
+      "aliases": [
+        "f_ScrollBustshotContinuously",
+        "f_2fa"
+      ]
+    },
+    {
+      "prototype": "void ScrollSpriteContinuously(long A, long B, long C)",
+      "aliases": [
+        "f_ScrollSpriteContinuously",
+        "f_30c"
+      ]
+    },
+    {
+      "prototype": "long Select(long A, char** B, bool C = FALSE)",
+      "aliases": [
+        "f_Select",
+        "f_160"
+      ]
+    },
+    {
+      "prototype": "long SelectColorSx(char* pszHitBitmap, bool bSyncBG = FALSE, bool bVisibilityOfMessageWindow = TRUE, bool bDisableTransparentColor = FALSE, bool bEnableSkipping = FALSE, bool bVisibleHit = FALSE, long lBtn = 0)",
+      "aliases": [
+        "f_SelectColorSx",
+        "f_17c"
+      ]
+    },
+    {
+      "prototype": "bool SelectCompiledScriptFile(char* A)",
+      "aliases": [
+        "f_SelectCompiledScriptFile",
+        "f_0fc"
+      ]
+    },
+    {
+      "prototype": "long SelectDateSpot()",
+      "aliases": [
+        "f_SelectDateSpot",
+        "f_17e"
+      ]
+    },
+    {
+      "prototype": "long SelectIcon(long A, ST_Icon* B)",
+      "aliases": [
+        "f_SelectIcon",
+        "f_168"
+      ]
+    },
+    {
+      "prototype": "long SelectIconEx(long A, ST_IconEx* B, char* C = NULL, char* D = NULL, char* E = NULL, bool F = FALSE)",
+      "aliases": [
+        "f_SelectIconEx",
+        "f_169"
+      ]
+    },
+    {
+      "prototype": "long SelectLine(long A = 150)",
+      "aliases": [
+        "f_SelectLine",
+        "f_460"
+      ]
+    },
+    {
+      "prototype": "long SelectMap()",
+      "aliases": [
+        "f_SelectMap",
+        "f_17f"
+      ]
+    },
+    {
+      "prototype": "long SelectRTC(char* A)",
+      "aliases": [
+        "f_SelectRTC",
+        "f_16a"
+      ]
+    },
+    {
+      "prototype": "long SelectRTCMap()",
+      "aliases": [
+        "f_SelectRTCMap",
+        "f_16b"
+      ]
+    },
+    {
+      "prototype": "void SetActivityOfIcons(bool A)",
+      "aliases": [
+        "f_SetActivityOfIcons",
+        "f_15e"
+      ]
+    },
+    {
+      "prototype": "void SetAdjustmentForSynchronizedVoicePlaying(long A)",
+      "aliases": [
+        "f_SetAdjustmentForSynchronizedVoicePlaying",
+        "f_1b7"
+      ]
+    },
+    {
+      "prototype": "void SetAdjustmentPositionOfCaret(long lX = 0x80000000, long lY = 0x80000000)",
+      "aliases": [
+        "f_SetAdjustmentPositionOfCaret",
+        "f_20d"
+      ]
+    },
+    {
+      "prototype": "void SetAirEnvironmentOfParticleScreen(bool A, long B, long C, long D, long E, long F, long G, long H, long I, long J, long K)",
+      "aliases": [
+        "f_SetAirEnvironmentOfParticleScreen",
+        "f_3c6"
+      ]
+    },
+    {
+      "prototype": "void SetAreaOfMessageWindow(long posX, long posY, long fontSize = -1, long rubyFontSize = -1, long lineGap = -1, long charactersPerLine = -1, long lines = -1, long automaticPageBreak = -1)",
+      "aliases": [
+        "f_SetAreaOfMessageWindow",
+        "f_204"
+      ]
+    },
+    {
+      "prototype": "void SetAreaOfName(long lX, long lY, long lFontSize)",
+      "aliases": [
+        "f_SetAreaOfName",
+        "f_205"
+      ]
+    },
+    {
+      "prototype": "void SetBitmapOfForeignCharacter(long A, char* B)",
+      "aliases": [
+        "f_SetBitmapOfForeignCharacter",
+        "f_1e0"
+      ]
+    },
+    {
+      "prototype": "void SetCameraAngleOfRainfall(long A, long B, long C)",
+      "aliases": [
+        "f_SetCameraAngleOfRainfall",
+        "f_3d5"
+      ]
+    },
+    {
+      "prototype": "void SetCaption(char* caption)",
+      "aliases": [
+        "f_SetCaption",
+        "f_11e"
+      ]
+    },
+    {
+      "prototype": "void SetCharacterInformationOfBustshot(long A, long B, char** C)",
+      "aliases": [
+        "f_SetCharacterInformationOfBustshot",
+        "f_421"
+      ]
+    },
+    {
+      "prototype": "void SetCharacterNumberForVoicePlaying(long A)",
+      "aliases": [
+        "f_SetCharacterNumberForVoicePlaying",
+        "f_1ae"
+      ]
+    },
+    {
+      "prototype": "void SetClearColor(long lColor = 0x000000)",
+      "aliases": [
+        "f_SetClearColor",
+        "f_13e"
+      ]
+    },
+    {
+      "prototype": "void SetClearName(long A)",
+      "aliases": [
+        "f_SetClearName",
+        "f_149"
+      ]
+    },
+    {
+      "prototype": "void SetClothesInformationOfBustshot(long A, long B, char** C, char** D = NULL)",
+      "aliases": [
+        "f_SetClothesInformationOfBustshot",
+        "f_423"
+      ]
+    },
+    {
+      "prototype": "void SetClothesNumber(long A, bool B = FALSE)",
+      "aliases": [
+        "f_SetClothesNumber",
+        "f_490"
+      ]
+    },
+    {
+      "prototype": "void SetClothesNumberPosition(long A)",
+      "aliases": [
+        "f_SetClothesNumberPosition",
+        "f_480"
+      ]
+    },
+    {
+      "prototype": "void SetColorOfMonologue(long A, long B, long C)",
+      "aliases": [
+        "f_SetColorOfMonologue",
+        "f_14e"
+      ]
+    },
+    {
+      "prototype": "void SetColorOfName(char* A, long B, long C, long D)",
+      "aliases": [
+        "f_SetColorOfName",
+        "f_1f8"
+      ]
+    },
+    {
+      "prototype": "void SetColorOfRain(long A, long B, long C, long D)",
+      "aliases": [
+        "f_SetColorOfRain",
+        "f_3d2"
+      ]
+    },
+    {
+      "prototype": "void SetColorOfRuby(long A, long B, long C)",
+      "aliases": [
+        "f_SetColorOfRuby",
+        "f_209"
+      ]
+    },
+    {
+      "prototype": "void SetColorOfWords(char* A, long B, long C, long D)",
+      "aliases": [
+        "f_SetColorOfWords",
+        "f_14f"
+      ]
+    },
+    {
+      "prototype": "void SetComment(char* A)",
+      "aliases": [
+        "f_SetComment",
+        "f_11c"
+      ]
+    },
+    {
+      "prototype": "void SetCommonPositionInformationOfBustshot(long A, long B, long C = 100)",
+      "aliases": [
+        "f_SetCommonPositionInformationOfBustshot",
+        "f_42c"
+      ]
+    },
+    {
+      "prototype": "void SetDate(long A, long B)",
+      "aliases": [
+        "f_SetDate",
+        "f_11b"
+      ]
+    },
+    {
+      "prototype": "bool SetDebugString(char* A)",
+      "aliases": [
+        "f_SetDebugString",
+        "f_0fd"
+      ]
+    },
+    {
+      "prototype": "void SetDefaultCaption(char* A)",
+      "aliases": [
+        "f_SetDefaultCaption",
+        "f_13f"
+      ]
+    },
+    {
+      "prototype": "void SetDefaultMusicOfOmake(long A)",
+      "aliases": [
+        "f_SetDefaultMusicOfOmake",
+        "f_410"
+      ]
+    },
+    {
+      "prototype": "void SetDefaultMusicOfRecollections(char* A)",
+      "aliases": [
+        "f_SetDefaultMusicOfRecollections",
+        "f_411"
+      ]
+    },
+    {
+      "prototype": "void SetDefaultName(long A, char* B, char* C)",
+      "aliases": [
+        "f_SetDefaultName",
+        "f_109"
+      ]
+    },
+    {
+      "prototype": "void SetDefaultNudePattern(long A)",
+      "aliases": [
+        "f_SetDefaultNudePattern",
+        "f_459"
+      ]
+    },
+    {
+      "prototype": "void SetDelayTimeForBustshotControlling(long A)",
+      "aliases": [
+        "f_SetDelayTimeForBustshotControlling",
+        "f_2dd"
+      ]
+    },
+    {
+      "prototype": "void SetDrawingPointOfMessage(long A, long B)",
+      "aliases": [
+        "f_SetDrawingPointOfMessage",
+        "f_146"
+      ]
+    },
+    {
+      "prototype": "void SetDrawingPointOfMessageEx(long A, long B, long C)",
+      "aliases": [
+        "f_SetDrawingPointOfMessageEx",
+        "f_147"
+      ]
+    },
+    {
+      "prototype": "void SetEndOfDay()",
+      "aliases": [
+        "f_SetEndOfDay",
+        "f_11f"
+      ]
+    },
+    {
+      "prototype": "void SetEndOfScene(long A)",
+      "aliases": [
+        "f_SetEndOfScene",
+        "f_0f5"
+      ]
+    },
+    {
+      "prototype": "void SetFaceInformationOfBustshot(long A, long B, char** C)",
+      "aliases": [
+        "f_SetFaceInformationOfBustshot",
+        "f_425"
+      ]
+    },
+    {
+      "prototype": "void SetFadeCountInIconSelecting(long A = (-1), long B = (-1), long C = (-1), bool D = FALSE)",
+      "aliases": [
+        "f_SetFadeCountInIconSelecting",
+        "f_177"
+      ]
+    },
+    {
+      "prototype": "void SetFadeCountInSelecting(long A = (-1), long B = (-1), long C = (-1), bool D = FALSE)",
+      "aliases": [
+        "f_SetFadeCountInSelecting",
+        "f_176"
+      ]
+    },
+    {
+      "prototype": "void SetFilmModeOfBustshot(long bustshotNo, long mode = 0, long color = 16777215, long alpha = 256)",
+      "aliases": [
+        "f_SetFilmModeOfBustshot",
+        "f_2f1"
+      ]
+    },
+    {
+      "prototype": "void SetFontColorOfIconSelecting(long A = (-1), long B = (-1), long C = (-1), long D = (-1), long E = (-1), long F = (-1))",
+      "aliases": [
+        "f_SetFontColorOfIconSelecting",
+        "f_174"
+      ]
+    },
+    {
+      "prototype": "void SetFontColorOfLoading(long A = -1, long B = -1, long C = -1, long D = -1, long E = -1)",
+      "aliases": [
+        "f_SetFontColorOfLoading",
+        "f_431"
+      ]
+    },
+    {
+      "prototype": "void SetFontColorOfSaving(long A = -1, long B = -1, long C = -1, long D = -1, long E = -1)",
+      "aliases": [
+        "f_SetFontColorOfSaving",
+        "f_430"
+      ]
+    },
+    {
+      "prototype": "void SetFontOfMessage(long A, long B, long C)",
+      "aliases": [
+        "f_SetFontOfMessage",
+        "f_14c"
+      ]
+    },
+    {
+      "prototype": "void SetFontOfMessageEx(long A, long B, long C, long D)",
+      "aliases": [
+        "f_SetFontOfMessageEx",
+        "f_14d"
+      ]
+    },
+    {
+      "prototype": "void SetFontSizeOfBBS(long A = -1, long B = -1)",
+      "aliases": [
+        "f_SetFontSizeOfBBS",
+        "f_432"
+      ]
+    },
+    {
+      "prototype": "void SetFontSizeOfIconSelecting(long A)",
+      "aliases": [
+        "f_SetFontSizeOfIconSelecting",
+        "f_171"
+      ]
+    },
+    {
+      "prototype": "void SetFontSizeOfRTC(long A)",
+      "aliases": [
+        "f_SetFontSizeOfRTC",
+        "f_172"
+      ]
+    },
+    {
+      "prototype": "void SetFontSizeOfSelecting(long A)",
+      "aliases": [
+        "f_SetFontSizeOfSelecting",
+        "f_170"
+      ]
+    },
+    {
+      "prototype": "void SetFrameColorOfRuby(long A, long B, long C)",
+      "aliases": [
+        "f_SetFrameColorOfRuby",
+        "f_20a"
+      ]
+    },
+    {
+      "prototype": "void SetGenerationIntervalOfParticle(long A, long B)",
+      "aliases": [
+        "f_SetGenerationIntervalOfParticle",
+        "f_3c9"
+      ]
+    },
+    {
+      "prototype": "void SetGlobalFlag(long A, bool B)",
+      "aliases": [
+        "f_SetGlobalFlag",
+        "f_0e6"
+      ]
+    },
+    {
+      "prototype": "void SetInformationOfMusic(long A, char* B, char* C, bool D, char* E = NULL, char* F = NULL, char* G = NULL, char* H = NULL)",
+      "aliases": [
+        "f_SetInformationOfMusic",
+        "f_404"
+      ]
+    },
+    {
+      "prototype": "void SetInformationOfRecollections(long A, long B, char* C, char* D, bool E)",
+      "aliases": [
+        "f_SetInformationOfRecollections",
+        "f_40a"
+      ]
+    },
+    {
+      "prototype": "void SetInformationOfTECMA(long A, long B, char* C, char* D, bool E)",
+      "aliases": [
+        "f_SetInformationOfTECMA",
+        "f_40b"
+      ]
+    },
+    {
+      "prototype": "void SetInformationOfThumbnailOfCG(long A, long B, char* C, long D, char** E, bool* F)",
+      "aliases": [
+        "f_SetInformationOfThumbnailOfCG",
+        "f_402"
+      ]
+    },
+    {
+      "prototype": "void SetInformationOfThumbnailOfReplay(long A, long B, char* C, char* D, bool E)",
+      "aliases": [
+        "f_SetInformationOfThumbnailOfReplay",
+        "f_403"
+      ]
+    },
+    {
+      "prototype": "void SetInitialPositionOfBG(long A, long B, long C)",
+      "aliases": [
+        "f_SetInitialPositionOfBG",
+        "f_260"
+      ]
+    },
+    {
+      "prototype": "void SetIntervalCountOfAnimation(long A, long B)",
+      "aliases": [
+        "f_SetIntervalCountOfAnimation",
+        "f_2f8"
+      ]
+    },
+    {
+      "prototype": "void SetLineGapOfMessage(long A)",
+      "aliases": [
+        "f_SetLineGapOfMessage",
+        "f_200"
+      ]
+    },
+    {
+      "prototype": "void SetLocalFlag(long A, bool B)",
+      "aliases": [
+        "f_SetLocalFlag",
+        "f_0e4"
+      ]
+    },
+    {
+      "prototype": "void SetLocalShortStrings(long A, char* B)",
+      "aliases": [
+        "f_SetLocalShortStrings",
+        "f_0eb"
+      ]
+    },
+    {
+      "prototype": "void SetLogicalZPositionOfBG(long A)",
+      "aliases": [
+        "f_SetLogicalZPositionOfBG",
+        "f_262"
+      ]
+    },
+    {
+      "prototype": "void SetMainNameOfLine(char* A = NULL)",
+      "aliases": [
+        "f_SetMainNameOfLine",
+        "f_468"
+      ]
+    },
+    {
+      "prototype": "void SetMaxNudePattern(long A)",
+      "aliases": [
+        "f_SetMaxNudePattern",
+        "f_458"
+      ]
+    },
+    {
+      "prototype": "void SetModeOfAutoSyncMngmntForBustshotControlling(long A)",
+      "aliases": [
+        "f_SetModeOfAutoSyncMngmntForBustshotControlling",
+        "f_2de"
+      ]
+    },
+    {
+      "prototype": "void SetMusicTelop(long A, char* B, char* C, char* D = NULL)",
+      "aliases": [
+        "f_SetMusicTelop",
+        "f_188"
+      ]
+    },
+    {
+      "prototype": "void SetName(long A, char* B, char* C)",
+      "aliases": [
+        "f_SetName",
+        "f_10b"
+      ]
+    },
+    {
+      "prototype": "void SetNameDecoration(char* A, char* B)",
+      "aliases": [
+        "f_SetNameDecoration",
+        "f_14a"
+      ]
+    },
+    {
+      "prototype": "void SetNextSelectingJumping(bool bValidity = FALSE)",
+      "aliases": [
+        "f_SetNextSelectingJumping",
+        "f_104"
+      ]
+    },
+    {
+      "prototype": "void SetNumberOfThumbnailOfCG(long A, long B)",
+      "aliases": [
+        "f_SetNumberOfThumbnailOfCG",
+        "f_400"
+      ]
+    },
+    {
+      "prototype": "void SetNumberOfThumbnailOfRecollections(long A, long B)",
+      "aliases": [
+        "f_SetNumberOfThumbnailOfRecollections",
+        "f_408"
+      ]
+    },
+    {
+      "prototype": "void SetNumberOfThumbnailOfReplay(long A, long B)",
+      "aliases": [
+        "f_SetNumberOfThumbnailOfReplay",
+        "f_401"
+      ]
+    },
+    {
+      "prototype": "void SetNumberOfThumbnailOfTECMA(long A, long B)",
+      "aliases": [
+        "f_SetNumberOfThumbnailOfTECMA",
+        "f_409"
+      ]
+    },
+    {
+      "prototype": "void SetParameterForImageWaveringOfBustshot(long A, long B, long C, long D, long E)",
+      "aliases": [
+        "f_SetParameterForImageWaveringOfBustshot",
+        "f_23d"
+      ]
+    },
+    {
+      "prototype": "void SetParameterForImageWaveringOfSprite(long A, long B, long C, long D, long E)",
+      "aliases": [
+        "f_SetParameterForImageWaveringOfSprite",
+        "f_23c"
+      ]
+    },
+    {
+      "prototype": "void SetParameterOfParticle(long A, char* B, long C, long D, long E, long F, long G, long H, long I, long J, long K, long L, long M, long N, long O, long P, long Q, bool R, long S, long T, bool U, long V, long W, bool X, long Y, long Z, long AA, long BB)",
+      "aliases": [
+        "f_SetParameterOfParticle",
+        "f_3c8"
+      ]
+    },
+    {
+      "prototype": "void SetPlannedPositionOfBustshot(long A, long B, long C, long D)",
+      "aliases": [
+        "f_SetPlannedPositionOfBustshot",
+        "f_2f3"
+      ]
+    },
+    {
+      "prototype": "void SetPoseInformationOfBustshot(long A, long B, char** C)",
+      "aliases": [
+        "f_SetPoseInformationOfBustshot",
+        "f_422"
+      ]
+    },
+    {
+      "prototype": "void SetPreviewName(char* A)",
+      "aliases": [
+        "f_SetPreviewName",
+        "f_450"
+      ]
+    },
+    {
+      "prototype": "void SetPreviewText(char* A)",
+      "aliases": [
+        "f_SetPreviewText",
+        "f_451"
+      ]
+    },
+    {
+      "prototype": "void SetPriorityOfParticleScreen(long A, long B = -1, long C = 32767, long D = -1)",
+      "aliases": [
+        "f_SetPriorityOfParticleScreen",
+        "f_3c5"
+      ]
+    },
+    {
+      "prototype": "void SetPriorityOfRainfallScreen(long A)",
+      "aliases": [
+        "f_SetPriorityOfRainfallScreen",
+        "f_3d8"
+      ]
+    },
+    {
+      "prototype": "void SetPubicHairNumber(long A, bool B = FALSE)",
+      "aliases": [
+        "f_SetPubicHairNumber",
+        "f_491"
+      ]
+    },
+    {
+      "prototype": "void SetPubicHairNumberPosition(long A)",
+      "aliases": [
+        "f_SetPubicHairNumberPosition",
+        "f_481"
+      ]
+    },
+    {
+      "prototype": "void SetQuantityOfRainfall(long A)",
+      "aliases": [
+        "f_SetQuantityOfRainfall",
+        "f_3d6"
+      ]
+    },
+    {
+      "prototype": "void SetRButtonMode(long A)",
+      "aliases": [
+        "f_SetRButtonMode",
+        "f_10d"
+      ]
+    },
+    {
+      "prototype": "void SetReplayInformationOfAnalysis(long A, long B, char* C)",
+      "aliases": [
+        "f_SetReplayInformationOfAnalysis",
+        "f_420"
+      ]
+    },
+    {
+      "prototype": "void SetSceneInformation(char* A, long B, long C, long D)",
+      "aliases": [
+        "f_SetSceneInformation",
+        "f_11a"
+      ]
+    },
+    {
+      "prototype": "void SetSceneName(char* sceneName)",
+      "aliases": [
+        "f_SetSceneName",
+        "f_118"
+      ]
+    },
+    {
+      "prototype": "void SetSceneNameForSynchronizedVoicePlaying(char* A, char* B)",
+      "aliases": [
+        "f_SetSceneNameForSynchronizedVoicePlaying",
+        "f_1b4"
+      ]
+    },
+    {
+      "prototype": "void SetSizeInformationOfBustshot(long A, long B, char** C)",
+      "aliases": [
+        "f_SetSizeInformationOfBustshot",
+        "f_424"
+      ]
+    },
+    {
+      "prototype": "void SetSizeOfRuby(long A)",
+      "aliases": [
+        "f_SetSizeOfRuby",
+        "f_208"
+      ]
+    },
+    {
+      "prototype": "void SetSizeOfSubMessageWindow(long lFontSize = -1, long lRubyFontSize = -1, long lLineGap = -1, long lCharactersPerLine = -1, long lLines = -1)",
+      "aliases": [
+        "f_SetSizeOfSubMessageWindow",
+        "f_203"
+      ]
+    },
+    {
+      "prototype": "void SetStyleOfMessageSwinging(long A)",
+      "aliases": [
+        "f_SetStyleOfMessageSwinging",
+        "f_159"
+      ]
+    },
+    {
+      "prototype": "void SetStyleOfMessageWindow(long A)",
+      "aliases": [
+        "f_SetStyleOfMessageWindow",
+        "f_158"
+      ]
+    },
+    {
+      "prototype": "void SetSubstitutionName(long A, char* B, char* C)",
+      "aliases": [
+        "f_SetSubstitutionName",
+        "f_108"
+      ]
+    },
+    {
+      "prototype": "void SetTargetOfMessageWindow(long windowNo, long target1 = -1, long target2 = -1, long target3 = -1, long target4 = -1)",
+      "aliases": [
+        "f_SetTargetOfMessageWindow",
+        "f_1f0"
+      ]
+    },
+    {
+      "prototype": "void SetTargetPositionOfBG(long A, long B, long C, long D, long E, long F)",
+      "aliases": [
+        "f_SetTargetPositionOfBG",
+        "f_261"
+      ]
+    },
+    {
+      "prototype": "void SetTextGap(long A = (-1))",
+      "aliases": [
+        "f_SetTextGap",
+        "f_201"
+      ]
+    },
+    {
+      "prototype": "void SetTextSpeed(bool A, long B)",
+      "aliases": [
+        "f_SetTextSpeed",
+        "f_145"
+      ]
+    },
+    {
+      "prototype": "void SetTransparencyOfParticleScreen(long A, long B)",
+      "aliases": [
+        "f_SetTransparencyOfParticleScreen",
+        "f_3c4"
+      ]
+    },
+    {
+      "prototype": "void SetUpdateCheckURL(char* A)",
+      "aliases": [
+        "f_SetUpdateCheckURL",
+        "f_4b0"
+      ]
+    },
+    {
+      "prototype": "void SetUsageConditionOfBitmap(char* A, bool B = TRUE)",
+      "aliases": [
+        "f_SetUsageConditionOfBitmap",
+        "f_225"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfAutomaticPageChanging(bool A, long B, long C)",
+      "aliases": [
+        "f_SetValidityOfAutomaticPageChanging",
+        "f_125"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfAutomaticWindowDisabling(bool A)",
+      "aliases": [
+        "f_SetValidityOfAutomaticWindowDisabling",
+        "f_226"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfFButton(bool A, char* B = NULL, char* C = NULL)",
+      "aliases": [
+        "f_SetValidityOfFButton",
+        "f_138"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfInput(bool A)",
+      "aliases": [
+        "f_SetValidityOfInput",
+        "f_120"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfLoading(bool A)",
+      "aliases": [
+        "f_SetValidityOfLoading",
+        "f_122"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfMusicTelop(bool A)",
+      "aliases": [
+        "f_SetValidityOfMusicTelop",
+        "f_189"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfRainfall(bool A, char* B, long C)",
+      "aliases": [
+        "f_SetValidityOfRainfall",
+        "f_3d0"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfSaving(bool A)",
+      "aliases": [
+        "f_SetValidityOfSaving",
+        "f_123"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfSkipping(bool A)",
+      "aliases": [
+        "f_SetValidityOfSkipping",
+        "f_121"
+      ]
+    },
+    {
+      "prototype": "void SetValidityOfSynchronizedVoicePlaying(bool A)",
+      "aliases": [
+        "f_SetValidityOfSynchronizedVoicePlaying",
+        "f_1b0"
+      ]
+    },
+    {
+      "prototype": "void SetVectorOfSightForRainfall(long A)",
+      "aliases": [
+        "f_SetVectorOfSightForRainfall",
+        "f_3d4"
+      ]
+    },
+    {
+      "prototype": "void SetViewOfParticleScreen(long A, long B, long C, long D, long E, long F)",
+      "aliases": [
+        "f_SetViewOfParticleScreen",
+        "f_3c2"
+      ]
+    },
+    {
+      "prototype": "void SetVisibilityOfCaret(bool A)",
+      "aliases": [
+        "f_SetVisibilityOfCaret",
+        "f_15f"
+      ]
+    },
+    {
+      "prototype": "long SetVoiceNumberForSynchronizedVoicePlaying(char* A, long B)",
+      "aliases": [
+        "f_SetVoiceNumberForSynchronizedVoicePlaying",
+        "f_1b6"
+      ]
+    },
+    {
+      "prototype": "void SetVoiceToPlayForOmake(long A, char* B, long C = 0)",
+      "aliases": [
+        "f_SetVoiceToPlayForOmake",
+        "f_412"
+      ]
+    },
+    {
+      "prototype": "void SetWindowChanging(bool A)",
+      "aliases": [
+        "f_SetWindowChanging",
+        "f_20f"
+      ]
+    },
+    {
+      "prototype": "void ShakeScreen(long A, long B, long C, long D, long E)",
+      "aliases": [
+        "f_ShakeScreen",
+        "f_3f0"
+      ]
+    },
+    {
+      "prototype": "void ShakeScreenSx(long A, long B)",
+      "aliases": [
+        "f_ShakeScreenSx",
+        "f_3f1"
+      ]
+    },
+    {
+      "prototype": "void ShiftBustshot(long A, char* B, char* C, char* D, long E, long F, long G, long H, long I, bool J, long K = BSCTRL_DELAY_DEFAULT, char* L = NULL, long M = 0, char** N = NULL, long* O = NULL)",
+      "aliases": [
+        "f_ShiftBustshot",
+        "f_2c4"
+      ]
+    },
+    {
+      "prototype": "void ShiftBustshotEx(long A, char* B, char* C, long D, char* E, long F, long G, long H, long I, long J, long K, bool L, long M = BSCTRL_DELAY_DEFAULT, char* N = NULL, long O = 0, char** P = NULL, long* Q = NULL)",
+      "aliases": [
+        "f_ShiftBustshotEx",
+        "f_2c5"
+      ]
+    },
+    {
+      "prototype": "void SpringText(long A, long B)",
+      "aliases": [
+        "f_SpringText",
+        "f_157"
+      ]
+    },
+    {
+      "prototype": "void StartNewLine()",
+      "aliases": [
+        "f_StartNewLine",
+        "f_142"
+      ]
+    },
+    {
+      "prototype": "void StartShakingOfAllObjects(long A, long B, long C, long D, long E, bool F)",
+      "aliases": [
+        "f_StartShakingOfAllObjects",
+        "f_230"
+      ]
+    },
+    {
+      "prototype": "void StartShakingOfBG(long A, long B, long C, long D, long E, bool F)",
+      "aliases": [
+        "f_StartShakingOfBG",
+        "f_234"
+      ]
+    },
+    {
+      "prototype": "void StartShakingOfBustshot(long A, long B, long C, long D, long E, long F, bool G)",
+      "aliases": [
+        "f_StartShakingOfBustshot",
+        "f_236"
+      ]
+    },
+    {
+      "prototype": "void StartShakingOfSprite(long A, long B, long C, long D, long E, long F, bool G)",
+      "aliases": [
+        "f_StartShakingOfSprite",
+        "f_238"
+      ]
+    },
+    {
+      "prototype": "void StartShakingOfWindow(long A, long B, long C, long D, long E, bool F)",
+      "aliases": [
+        "f_StartShakingOfWindow",
+        "f_232"
+      ]
+    },
+    {
+      "prototype": "void StopBGM(long A)",
+      "aliases": [
+        "f_StopBGM",
+        "f_184"
+      ]
+    },
+    {
+      "prototype": "void StopSE(long A)",
+      "aliases": [
+        "f_StopSE",
+        "f_1a2"
+      ]
+    },
+    {
+      "prototype": "void StopStreamingSE(long channel)",
+      "aliases": [
+        "f_StopStreamingSE",
+        "f_194"
+      ]
+    },
+    {
+      "prototype": "void StopStreamingVoice(long A)",
+      "aliases": [
+        "f_StopStreamingVoice",
+        "f_19c"
+      ]
+    },
+    {
+      "prototype": "void StopVoice(long A)",
+      "aliases": [
+        "f_StopVoice",
+        "f_1aa"
+      ]
+    },
+    {
+      "prototype": "void StoreValueToGlobalWork(long globalIndex, long value)",
+      "aliases": [
+        "f_StoreValueToGlobalWork",
+        "f_0e2"
+      ]
+    },
+    {
+      "prototype": "void StoreValueToLocalWork(long A, long B)",
+      "aliases": [
+        "f_StoreValueToLocalWork",
+        "f_0e0"
+      ]
+    },
+    {
+      "prototype": "void StretchBustshot(long A, long B, long C, bool D, long E = BSCTRL_DELAY_DEFAULT)",
+      "aliases": [
+        "f_StretchBustshot",
+        "f_2ca"
+      ]
+    },
+    {
+      "prototype": "void SubstituteStringsBForStringsA(char* A, char* B, char* C, char* D)",
+      "aliases": [
+        "f_SubstituteStringsBForStringsA",
+        "f_093"
+      ]
+    },
+    {
+      "prototype": "void SuspendAnimationOfAllBustshots(bool A)",
+      "aliases": [
+        "f_SuspendAnimationOfAllBustshots",
+        "f_2ff"
+      ]
+    },
+    {
+      "prototype": "void SuspendLipSyncOfAllBustshots(bool A)",
+      "aliases": [
+        "f_SuspendLipSyncOfAllBustshots",
+        "f_2fe"
+      ]
+    },
+    {
+      "prototype": "void SuspendMovieRestartingOfSprite(long A, long B)",
+      "aliases": [
+        "f_SuspendMovieRestartingOfSprite",
+        "f_32c"
+      ]
+    },
+    {
+      "prototype": "void SuspendSkippingAndAutomaticMode(bool A, bool B = TRUE)",
+      "aliases": [
+        "f_SuspendSkippingAndAutomaticMode",
+        "f_11d"
+      ]
+    },
+    {
+      "prototype": "void SuspendWinkingOfAllBustshots(bool A)",
+      "aliases": [
+        "f_SuspendWinkingOfAllBustshots",
+        "f_2fd"
+      ]
+    },
+    {
+      "prototype": "void TerminateExecutionOfScript()",
+      "aliases": [
+        "f_TerminateExecutionOfScript",
+        "f_0f4"
+      ]
+    },
+    {
+      "prototype": "void TerminateShakingOfAllObjects(long A, bool B)",
+      "aliases": [
+        "f_TerminateShakingOfAllObjects",
+        "f_231"
+      ]
+    },
+    {
+      "prototype": "void TerminateShakingOfBG(long A, bool B)",
+      "aliases": [
+        "f_TerminateShakingOfBG",
+        "f_235"
+      ]
+    },
+    {
+      "prototype": "void TerminateShakingOfBustshot(long A, long B, bool C)",
+      "aliases": [
+        "f_TerminateShakingOfBustshot",
+        "f_237"
+      ]
+    },
+    {
+      "prototype": "void TerminateShakingOfSprite(long A, long B, bool C)",
+      "aliases": [
+        "f_TerminateShakingOfSprite",
+        "f_239"
+      ]
+    },
+    {
+      "prototype": "void TerminateShakingOfWindow(long A, bool B)",
+      "aliases": [
+        "f_TerminateShakingOfWindow",
+        "f_233"
+      ]
+    },
+    {
+      "prototype": "void VanishAllParticles()",
+      "aliases": [
+        "f_VanishAllParticles",
+        "f_3c7"
+      ]
+    },
+    {
+      "prototype": "bool Wait(long A, bool B = TRUE)",
+      "aliases": [
+        "f_Wait",
+        "f_110"
+      ]
+    },
+    {
+      "prototype": "long WaitForFButton()",
+      "aliases": [
+        "f_WaitForFButton",
+        "f_139"
+      ]
+    },
+    {
+      "prototype": "void WaitForInput()",
+      "aliases": [
+        "f_WaitForInput",
+        "f_111"
+      ]
+    },
+    {
+      "prototype": "bool WaitForTiming(long A)",
+      "aliases": [
+        "f_WaitForTiming",
+        "f_113"
+      ]
+    },
+    {
+      "prototype": "void WaitToFinishAnimationOnBustshot(long A, bool B)",
+      "aliases": [
+        "f_WaitToFinishAnimationOnBustshot",
+        "f_2fc"
+      ]
+    },
+    {
+      "prototype": "void WaitToFinishBGControlling(bool A)",
+      "aliases": [
+        "f_WaitToFinishBGControlling",
+        "f_25f"
+      ]
+    },
+    {
+      "prototype": "void WaitToFinishBustshotControlling(long A, bool B)",
+      "aliases": [
+        "f_WaitToFinishBustshotControlling",
+        "f_2df"
+      ]
+    },
+    {
+      "prototype": "void WaitToFinishFilmControlling(bool A)",
+      "aliases": [
+        "f_WaitToFinishFilmControlling",
+        "f_3af"
+      ]
+    },
+    {
+      "prototype": "bool WaitToFinishMoviePlayingOnBG(bool A)",
+      "aliases": [
+        "f_WaitToFinishMoviePlayingOnBG",
+        "f_27f"
+      ]
+    },
+    {
+      "prototype": "bool WaitToFinishMoviePlayingOnSprite(long A, bool B)",
+      "aliases": [
+        "f_WaitToFinishMoviePlayingOnSprite",
+        "f_33f"
+      ]
+    },
+    {
+      "prototype": "void WaitToFinishSEPlaying(long A, bool B = TRUE, bool C = TRUE)",
+      "aliases": [
+        "f_WaitToFinishSEPlaying",
+        "f_1a4"
+      ]
+    },
+    {
+      "prototype": "void WaitToFinishSightMoving(bool A)",
+      "aliases": [
+        "f_WaitToFinishSightMoving",
+        "f_229"
+      ]
+    },
+    {
+      "prototype": "void WaitToFinishSpriteControlling(long A, bool B)",
+      "aliases": [
+        "f_WaitToFinishSpriteControlling",
+        "f_31f"
+      ]
+    },
+    {
+      "prototype": "void WaitToFinishVoicePlaying(long A, bool B = TRUE)",
+      "aliases": [
+        "f_WaitToFinishVoicePlaying",
+        "f_1ac"
+      ]
+    },
+    {
+      "prototype": "void WaveBG(long A, long B, long C, long D, long E, long F, long G, bool H)",
+      "aliases": [
+        "f_WaveBG",
+        "f_24e"
+      ]
+    },
+    {
+      "prototype": "void WaveScreen(long A, long B, long C, long D, long E, long F, bool G, long H, bool I)",
+      "aliases": [
+        "f_WaveScreen",
+        "f_353"
+      ]
+    },
+    {
+      "prototype": "void Whiteout(long A, bool B, bool C = TRUE)",
+      "aliases": [
+        "f_Whiteout",
+        "f_391"
+      ]
+    },
+    {
+      "prototype": "void WhiteoutBySA(long A, bool B, bool C = TRUE)",
+      "aliases": [
+        "f_WhiteoutBySA",
+        "f_392"
+      ]
+    },
+    {
+      "prototype": "bool WriteBBS(long A, long B = 0, bool C = TRUE)",
+      "aliases": [
+        "f_WriteBBS",
+        "f_442"
+      ]
+    }
+  ],
+  "user_functions": []
+}
