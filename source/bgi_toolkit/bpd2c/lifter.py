@@ -106,7 +106,7 @@ CONSTANT_GROUP_RESULTS = {
 DEFERRED_RESULT_OPCODES = {
     "grp1_resource_named_object_create",
     "grp1_resource_rect_object_create",
-    "grp1_sprite_create_basic",
+    "grp1_object_alpha_control_start",
     "grp1_sprite_create_extended",
     "grp1_sprite_create_scaled",
     "grp3_resource_draw_object_create",

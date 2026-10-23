@@ -22,7 +22,8 @@ def copy_source(destination):
     shutil.copytree(ROOT / 'bgi_toolkit', destination / 'bgi_toolkit',
                     ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '*.pyo', '*.obj', '*.exp', '*.lib'))
     for name in ('pyproject.toml', 'README.md', 'run_gui.bat'):
-        shutil.copy2(ROOT / name, destination / name)
+        if name != 'README.md' or (ROOT / name).is_file():
+            shutil.copy2(ROOT / name, destination / name)
     (destination / 'tools').mkdir()
     for name in ('build_release.py', 'build_wheel.py', 'release_entry.py', 'release_smoke.py',
                  'release_README.md', 'release_README_EN.md'):

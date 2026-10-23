@@ -233,11 +233,13 @@ def _parse_assembly_text(text: str, path: str | Path) -> AssemblyModule:
         instruction_match = INSTRUCTION_RE.fullmatch(line)
         if instruction_match:
             in_data_section = False
+            from ..asdis.bp.opcode_names import canonical_opcode_name
             opcode = instruction_match.group("opcode")
             args = split_arguments(instruction_match.group("args"))
             from ..asdis.bp import bpop
             if opcode in bpop.rops:
                 bpop.validate_instruction_name(opcode, bpop.rops[opcode])
+            opcode = canonical_opcode_name(opcode)
             module.items.append(
                 AsmInstruction(
                     opcode=opcode,

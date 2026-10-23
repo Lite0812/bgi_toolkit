@@ -1,7 +1,7 @@
 """BP engine profiles and evidence-based selection.
 
 The historical generation order and product strings are format facts documented
-by OpenBGI, pinned at 40b144a03e15f159cadc957387e6f94bce8de65f.
+by OpenBGI; the packaged survey records its source hash and generation order.
 The 1.687 profile comes from the supplied x64 BGI handlers, not that older VM.
 """
 from __future__ import annotations
@@ -21,7 +21,7 @@ import struct
 GENERATIONS = (
     '1.58', '1.64', '1.66', '1.69/444', '1.69/451', '1.69/472',
     '1.494', '1.529', '1.535', '1.547', '1.553', '1.573', '1.588',
-    '1.599', '1.616', '1.640', '1.653', '1.654', '1.659', '1.662',
+    '1.599', '1.616', '1.636', '1.640', '1.653', '1.654', '1.659', '1.662',
     '1.667', '1.669', '1.687',
 )
 
@@ -79,7 +79,8 @@ BUILTIN_GAMES = (
     ('PrismRhythm', '1.494'), ('DiamicDays', '1.529'), ('Gackoh_HD', '1.547'),
     ('Gackoh', '1.535'), ('HanairoHeptagram', '1.553'), ('MagicalCharming!', '1.573'),
     ('SekaiToSekaiNoMannakaDe', '1.588'), ('UnmeisenjouNoPhi', '1.599'),
-    ('KodomoNoAsobi', '1.616'), ('Tayutama2AS', '1.640'), ('WakabaironoQuartet', '1.653'),
+    ('KodomoNoAsobi', '1.616'), ('SenNoHatouTsukisomeNoKouki', '1.636'),
+    ('Tayutama2AS', '1.640'), ('WakabaironoQuartet', '1.653'),
     ('NekoTsukuSakura', '1.654'), ('MadoiShirokinoKamikakushi', '1.659'),
     ('Yumahorome', '1.662'), ('ArcanaAlchemia', '1.667'), ('HarukaAonoHanayomeni', '1.669'),
 )
@@ -103,9 +104,13 @@ def get_profile(value: str | EngineProfile | None = None) -> EngineProfile:
 
 
 @lru_cache(maxsize=1)
-def _opcode_sets():
+def _opcode_survey():
     path = Path(__file__).with_name('asdis') / 'resources/bp_engine_opsets.json'
-    return json.loads(path.read_text(encoding='utf-8'))['families']
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
+def _opcode_sets():
+    return _opcode_survey()['families']
 
 
 def opcode_available(opcode: int, subopcode: int | None = None) -> bool:
@@ -117,17 +122,29 @@ def opcode_available(opcode: int, subopcode: int | None = None) -> bool:
     if table is None:
         return True
     index = opcode if subopcode is None else subopcode
-    return bool(int(table[index], 16) & (1 << profile.rank))
+    # Masks belong to their survey's generation order, not the enum's position.
+    rank = _opcode_survey()['generations'].index(profile.generation)
+    return bool(int(table[index], 16) & (1 << rank))
 
 
 def historical_names(profile: EngineProfile | None = None) -> dict[tuple[int, int], str]:
     profile = profile or get_profile()
     if not profile.historical:
         return {}
-    result = {
-        (0x80, 0xEC): 'sys1_check_registration', (0x80, 0xED): 'sys1_read_comap',
-        (0x80, 0xEE): 'sys1_machine_key', (0x80, 0xEF): 'sys1_machine_key_xor',
-    }
+    result = {}
+    if profile.before('1.636'):
+        result.update({
+            (0x80, 0xEC): 'sys1_check_registration', (0x80, 0xED): 'sys1_read_comap',
+            (0x80, 0xEE): 'sys1_machine_key', (0x80, 0xEF): 'sys1_machine_key_xor',
+        })
+    if not profile.before('1.69/472') and profile.before('1.653'):
+        result.update({
+            (0x91, 0xF4): 'grp2_video_texture_control4',
+            (0x91, 0xF5): 'grp2_video_texture_advance',
+            (0x91, 0xF6): 'grp2_video_texture_release',
+        })
+    if profile.generation == '1.69/472':
+        result[(0x92, 0x37)] = 'grp3_object_set_fixed_offset_at_37'
     if profile.before('1.653'):
         result.update({
             (0x80, 0xB0): 'sys1_named_lock_create', (0x80, 0xB1): 'sys1_named_lock_delete',
@@ -136,6 +153,11 @@ def historical_names(profile: EngineProfile | None = None) -> dict[tuple[int, in
         })
     if profile.before('1.66'):
         result.update({
+            (0x90, 0x8A): 'grp1_window_set_spacing_at_8a',
+            (0x90, 0x8B): 'grp1_window_set_punch_at_8b',
+            (0x90, 0x8C): 'grp1_window_show_frame_at_8c',
+            (0x90, 0x8D): 'grp1_window_draw_to_frame_at_8d',
+            (0x91, 0x8F): 'grp2_window_get_cursor_at_8f',
             (0x90, 0x59): 'grp1_sprite_ripple_at_59',
             (0x90, 0x87): 'grp1_window_set_font_at_87',
             (0x91, 0x8C): 'grp2_window_show_text_at_8c',

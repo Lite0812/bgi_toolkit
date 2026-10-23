@@ -21,7 +21,8 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="bgi_toolkit_build_") as folder:
         stage = Path(folder)
         for name in ("pyproject.toml", "README.md"):
-            shutil.copy2(ROOT / name, stage / name)
+            if name != "README.md" or (ROOT / name).is_file():
+                shutil.copy2(ROOT / name, stage / name)
         shutil.copytree(ROOT / "bgi_toolkit", stage / "bgi_toolkit",
                         ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo"))
         environment = dict(os.environ, PIP_DISABLE_PIP_VERSION_CHECK="1", PYTHONDONTWRITEBYTECODE="1")

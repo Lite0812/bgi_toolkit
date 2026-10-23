@@ -6,6 +6,7 @@ from functools import lru_cache
 from .opcode_stack_effects import STACK_EFFECTS
 from .opcode_provenance import CHECKED_RESULT_SOURCES, DEFERRED_RESULT_OPCODES
 from ..bp_engine import EngineProfile, get_profile
+from ..asdis.bp.opcode_names import canonical_opcode_name
 
 
 CORE_OPCODE_STACK_EFFECTS: dict[str, tuple[int, int]] = {
@@ -137,14 +138,34 @@ def _load_opcode_semantics(profile: EngineProfile) -> dict[str, OpcodeSemantics]
                                         result_count=results, result_count_verified=True,
                                         stack_effect_source='versioned-handler')
         historical = {
-            'sys1_check_registration': (0, 1), 'sys1_read_comap': (1, 1),
-            'sys1_machine_key': (0, 1), 'sys1_machine_key_xor': (1, 1),
             'grp2_set_rich_text_parameters': (5 if profile.generation == '1.58' else 6, 0),
         }
+        if profile.before('1.636'):
+            historical.update({
+                'sys1_check_registration': (0, 1), 'sys1_read_comap': (1, 1),
+                'sys1_machine_key': (0, 1), 'sys1_machine_key_xor': (1, 1),
+            })
+            for name in ('sys1_ethornell_plugin_load', 'sys1_ethornell_plugin_unload', 'sys1_ethornell_plugin_call'):
+                definitions.pop(name, None)
+        if not profile.before('1.69/472') and profile.before('1.653'):
+            historical.update({
+                'grp2_video_texture_control4': (5, 1),
+                'grp2_video_texture_advance': (1, 1),
+                'grp2_video_texture_release': (1, 1),
+            })
+        if profile.generation == '1.69/472':
+            historical['grp3_object_set_fixed_offset_at_37'] = (4, 0)
         if profile.before('1.66'):
             historical.update({
+                'grp1_window_set_spacing_at_8a': (2, 0),
+                'grp1_window_set_punch_at_8b': (2, 0),
+                'grp1_window_show_frame_at_8c': (2, 0),
+                # Both drawing wrappers delegate to Gfx2_WindowDraw: six
+                # pops, no VM push, despite the generated opstack annotation.
+                'grp1_window_draw_to_frame_at_8d': (6, 0),
+                'grp2_window_get_cursor_at_8f': (1, 3),
                 'grp1_sprite_ripple_at_59': (10, 0), 'grp1_window_set_font_at_87': (7, 0),
-                'grp2_window_show_text_at_8c': (2, 0), 'grp2_window_draw_to_text_at_8d': (6, 1),
+                'grp2_window_show_text_at_8c': (2, 0), 'grp2_window_draw_to_text_at_8d': (6, 0),
                 'grp2_window_clear_at_8e': (1, 0),
             })
             if profile.generation == '1.58':
@@ -158,8 +179,6 @@ def _load_opcode_semantics(profile: EngineProfile) -> dict[str, OpcodeSemantics]
                 historical.update({
                     'grp1_sprite_transform_at_5a': (13, 0), 'grp1_sprite_transform_at_5b': (13, 0),
                 })
-        for name in ('sys1_ethornell_plugin_load', 'sys1_ethornell_plugin_unload', 'sys1_ethornell_plugin_call'):
-            definitions.pop(name, None)
         if profile.before('1.653'):
             historical.update({
                 'sys1_named_lock_create': (2, 1), 'sys1_named_lock_delete': (1, 1),
@@ -177,4 +196,4 @@ def _load_opcode_semantics(profile: EngineProfile) -> dict[str, OpcodeSemantics]
 
 
 def get_opcode_semantics(name: str, engine=None) -> OpcodeSemantics | None:
-    return load_opcode_semantics(engine).get(name)
+    return load_opcode_semantics(engine).get(canonical_opcode_name(name))

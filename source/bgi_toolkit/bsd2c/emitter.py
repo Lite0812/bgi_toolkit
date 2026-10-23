@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 import re
 
 from .builtin_functions import builtin_resolver_scope, call_opcode, load_builtin_resolver
+from .integer_semantics import trunc_div, trunc_mod
 
 from .ir import (
     AddressOf,
@@ -255,9 +256,9 @@ def evaluate_int_constant(expr: Expr) -> int | None:
     if expr.op == "*":
         return left * right
     if expr.op == "/" and right != 0:
-        return left // right
+        return trunc_div(left, right)
     if expr.op == "%" and right != 0:
-        return left % right
+        return trunc_mod(left, right)
     if expr.op == "<<":
         return left << right
     if expr.op == ">>":
@@ -432,7 +433,7 @@ def simplify_expr(expr: Expr) -> Expr:
         value = simplify_expr(expr.value)
         if expr.op == "!":
             if isinstance(value, UnaryExpr) and value.op == "!":
-                return value.value
+                return simplify_expr(BinaryExpr("!=", value.value, IntLiteral(0)))
             if isinstance(value, BinaryExpr) and value.op in NEGATED_COMPARE_OPS:
                 return simplify_expr(BinaryExpr(NEGATED_COMPARE_OPS[value.op], value.left, value.right))
         constant = evaluate_int_constant(UnaryExpr(expr.op, value))
@@ -496,19 +497,15 @@ def simplify_expr(expr: Expr) -> Expr:
         if expr.op in {"<<", ">>"} and evaluate_int_constant(right) == 0:
             return left
         if expr.op == "&&":
-            if evaluate_int_constant(left) == 0 or evaluate_int_constant(right) == 0:
-                return IntLiteral(0)
             if evaluate_int_constant(left) == 1:
-                return right
+                return simplify_expr(BinaryExpr("!=", right, IntLiteral(0)))
             if evaluate_int_constant(right) == 1:
-                return left
+                return simplify_expr(BinaryExpr("!=", left, IntLiteral(0)))
         if expr.op == "||":
-            if evaluate_int_constant(left) == 1 or evaluate_int_constant(right) == 1:
-                return IntLiteral(1)
             if evaluate_int_constant(left) == 0:
-                return right
+                return simplify_expr(BinaryExpr("!=", right, IntLiteral(0)))
             if evaluate_int_constant(right) == 0:
-                return left
+                return simplify_expr(BinaryExpr("!=", left, IntLiteral(0)))
 
         return BinaryExpr(expr.op, left, right)
     if isinstance(expr, CallExpr):
@@ -1566,13 +1563,19 @@ class StructuredEmitter:
                     DoWhileRegion(
                         condition=condition,
                         header_index=index,
-                        body_region=self.build_region_tree(
-                            index,
-                            condition_index,
-                            suppress_first_label=True,
-                            loop_header_label=self.blocks[index].label,
-                            loop_exit_label=exit_label,
-                        ),
+                        body_region=SequenceRegion([
+                            self.build_region_tree(
+                                index,
+                                condition_index,
+                                suppress_first_label=True,
+                                loop_header_label=self.blocks[index].label,
+                                loop_exit_label=exit_label,
+                            ),
+                            # The test's block may also display text or update
+                            # the value being tested. Execute its body on every
+                            # iteration before evaluating the while condition.
+                            BlockBodyRegion(condition_index, show_label=False),
+                        ]),
                         exit_label=exit_label,
                     )
                 )
@@ -2007,6 +2010,7 @@ class StructuredEmitter:
                         loop_exit_label=exit_label,
                     )
                 )
+                lines.extend(self.render_block_body(self.blocks[condition_index], indent + "    ", show_label=False))
                 lines.append(f"{indent}}} while ({render_expr(condition, self.array_locals, self.pointer_param_sizes)});")
                 self.maybe_suppress_label(exit_label, 1)
                 index = exit_index
@@ -2779,6 +2783,11 @@ class StructuredEmitter:
         block = self.blocks[index]
         terminator = block.terminator
         if not isinstance(terminator, BranchStmt) or not terminator.jump_if_false:
+            return None
+        # Statements computing the test must run on every back edge. A plain
+        # while region currently renders this block before the loop, so keep
+        # the explicit CFG/dispatch form when it contains actual statements.
+        if any(not isinstance(stmt, CommentStmt) for stmt in block.body):
             return None
 
         header_label = block.label

@@ -4,7 +4,8 @@
 # the current instruction's starting IP is kept separately at ctx+0xE0.
 
 from ..common import asdis
-from ...bp_engine import get_profile, historical_names, opcode_available
+from ...bp_engine import GENERATIONS, get_profile, historical_names, opcode_available
+from .opcode_names import OPCODE_ALIASES, canonical_opcode_name
 import re
 import struct
 
@@ -306,9 +307,9 @@ precise_subop_name_text = """
 81:ED sys2_release_named_mutex_handle
 81:F2 sys2_create_dcproc_installation
 81:F7 sys2_export_resource_com_data
-90:00 grp1_text_dirty_set
-90:01 grp1_message_speed_raw_set
-90:02 grp1_message_interval_set
+90:00 grp1_present_request
+90:01 grp1_display_enable_set
+90:02 grp1_frame_rate_set
 90:03 grp1_timer_resource_create
 90:04 grp1_surface_capture_current
 90:05 grp1_surface_capture_priority
@@ -324,7 +325,7 @@ precise_subop_name_text = """
 90:0F grp1_alpha_background_color_set
 90:10 grp1_surface_load_from_resource
 90:11 grp1_surface_create
-90:12 grp1_surface_exists_get
+90:12 grp1_bitmap_release
 90:13 grp1_surface_fill_uniform_color
 90:14 grp1_draw_resource_apply
 90:15 grp1_surface_load_pair
@@ -338,8 +339,8 @@ precise_subop_name_text = """
 90:1D grp1_surface_copy_mode
 90:1E grp1_surface_rect_blit
 90:1F grp1_surface_create_and_blit
-90:20 grp1_sprite_create_basic
-90:21 grp1_sprite_create_layered
+90:20 grp1_object_alpha_control_start
+90:21 grp1_object_move_control_start
 90:22 grp1_sprite_create_scaled
 90:23 grp1_sprite_create_extended
 90:24 grp1_resource_sprite_create_ext
@@ -348,12 +349,12 @@ precise_subop_name_text = """
 90:2C grp1_resource_transition_create
 90:30 grp1_object_active_set
 90:31 grp1_object_state_recursive_set
-90:32 grp1_object_blend_mode_set
+90:32 grp1_object_alpha_level_set
 90:33 grp1_object_position_set
 90:34 grp1_object_opacity_set
 90:35 grp1_object_render_mode_set
-90:36 grp1_object_size_set
-90:37 grp1_object_origin_set
+90:36 grp1_object_secondary_offset_set
+90:37 grp1_object_primary_offset_set
 90:38 grp1_object_layer_set
 90:39 grp1_object_anchor_mode_set
 90:3A grp1_object_priority_set
@@ -373,8 +374,8 @@ precise_subop_name_text = """
 90:4A grp1_current_layer_resource_blend_set
 90:4C grp1_layer_order_set
 90:4D grp1_layer_count_get
-90:50 grp1_layer_selected_get
-90:51 grp1_layer_resource_release
+90:50 grp1_sprite_create
+90:51 grp1_sprite_release
 90:53 grp1_layer_anim_resource_rect_set
 90:54 grp1_layer_anim_enable_set
 90:55 grp1_layer_anim_state_set
@@ -386,27 +387,27 @@ precise_subop_name_text = """
 90:5B grp1_layer_anim_key10_set
 90:5C grp1_layer_anim_complex17_set
 90:5D grp1_layer_anim_complex20_set
-90:60 grp1_layer_controller_create
-90:61 grp1_release_layer_controller_handle
+90:60 grp1_filter_create
+90:61 grp1_filter_release
 90:64 grp1_layer_controller_mode_set
 90:65 grp1_layer_controller_rect_set
 90:66 grp1_layer_controller_rect_ext_set
-90:70 grp1_anim_object_create_get_handle
-90:71 grp1_anim_object_release
+90:70 grp1_map_create
+90:71 grp1_map_release
 90:74 grp1_anim_object_set_active_mode
 90:75 grp1_anim_object_transform6_set
 90:76 grp1_anim_curve_set
 90:78 grp1_anim_resource_bind
 90:79 grp1_anim_keyframe_set
 90:7A grp1_anim_mode_set
-90:80 grp1_object_status_get
-90:81 grp1_scene_object_state_set
+90:80 grp1_window_create
+90:81 grp1_window_release
 90:82 grp1_object_visibility_set
 90:83 grp1_object_composite_mode_set
 90:84 grp1_object_z_order_set
 90:85 grp1_object_transform_set
 90:86 grp1_object_clip_rect_set
-90:87 grp1_object_alpha_set
+90:87 grp1_window_isolated_composition_set
 90:88 grp1_object_color_transform_set
 90:89 grp1_object_named_metric_get
 90:90 grp1_resource_proc_create
@@ -474,12 +475,12 @@ precise_subop_name_text = """
 90:DD grp1_text_window_counter_get
 90:DE grp1_text_window_visibility_set
 90:DF grp1_text_window_mode_direct_set
-90:E0 grp1_tail_object_create_get
-90:E1 grp1_render_controller_release
+90:E0 grp1_group_create
+90:E1 grp1_group_release
 90:E4 grp1_render_controller_mode_set
 90:E5 grp1_render_controller_transform_set
-90:E8 grp1_render_controller_resource_set
-90:E9 grp1_render_controller_resource_bind
+90:E8 grp1_group_add_object
+90:E9 grp1_group_remove_object
 90:F0 grp1_movie_open_and_play
 90:F1 grp1_movie_stop
 90:F2 grp1_movie_is_playing
@@ -563,12 +564,12 @@ precise_subop_name_text = """
 91:7D grp2_landscape_set_neighbor_tile
 91:7E grp2_landscape_get_cell_code
 91:7F grp2_landscape_copy_cell_resource
-91:88 grp2_current_set_render_percent
-91:89 grp2_current_limit_set
+91:88 grp2_window_font_set
+91:89 grp2_window_line_spacing_percent_set
 91:8A grp2_current_set_bool_mode
 91:8B grp2_current_set_axis_mode
-91:8C grp2_current_set_origin
-91:8D grp2_current_get_origin3
+91:8C grp2_window_text_cursor_set
+91:8D grp2_window_text_cursor_get
 91:8E grp2_current_get_arrival_flag
 91:90 grp2_resource_object_create
 91:91 grp2_resource_object_create_blended
@@ -961,6 +962,10 @@ def is_fixed_relative_op(op):
 def get_op_entry(op):
 	if not opcode_available(op):
 		return None
+	if op == 0x76:
+		# Registered only by 1.573; its operand-free shape is known, its
+		# runtime stack behavior is not. Keep an explicit opaque instruction.
+		return ('', 'legacy_unknown_76()', None) if get_profile().historical else None
 	if op == 0x09 and get_profile().store_keeps_value:
 		return ('b', 'store_keep(%#x)', None)
 	if op == 0x7F and not get_profile().compact:
@@ -1918,14 +1923,18 @@ def make_rops():
 
 make_rops()
 
+for _previous, _canonical in OPCODE_ALIASES.items():
+	rops[_previous] = rops[_canonical]
+
 # Distinct historical operations, not aliases for retired BPD names.
-rops.update({'store_keep': 0x09, 'debug_hook': 0x7F, 'jc_legacy': 0x15})
-for _version in ('1.58', '1.64', '1.662'):
+rops.update({'store_keep': 0x09, 'debug_hook': 0x7F, 'jc_legacy': 0x15, 'legacy_unknown_76': 0x76})
+for _version in GENERATIONS:
 	for _key, _name in historical_names(get_profile(_version)).items():
 		rops[_name] = _make_subop_pseudo(*_key)
 
 
 def validate_instruction_name(name, op):
+	name = canonical_opcode_name(name)
 	profile = get_profile()
 	if _is_subop_pseudo(op):
 		group, sub = _split_subop_pseudo(op)

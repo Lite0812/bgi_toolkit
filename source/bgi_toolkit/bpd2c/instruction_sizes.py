@@ -4,6 +4,7 @@ import re
 
 from .opcode_encoding_data import FIXED_INSTRUCTION_SIZES, VARIABLE_OPCODES
 from ..bp_engine import engine_scope, get_profile
+from ..asdis.bp.opcode_names import canonical_opcode_name
 
 
 GENERIC_GROUP_OPCODE_RE = re.compile(
@@ -38,6 +39,7 @@ def _list_values(text: str) -> list[int]:
 
 
 def instruction_size(opcode: str, args: list[str], engine=None) -> int | None:
+    opcode = canonical_opcode_name(opcode)
     if engine is not None:
         with engine_scope(engine):
             return instruction_size(opcode, args)
@@ -47,6 +49,8 @@ def instruction_size(opcode: str, args: list[str], engine=None) -> int | None:
         return 2 if not get_profile().compact else None
     if opcode == 'debug_hook':
         return 1 if not get_profile().compact else None
+    if opcode == 'legacy_unknown_76':
+        return 1 if get_profile().generation == '1.573' else None
     if get_profile().historical:
         from ..bp_engine import historical_names
         if opcode in historical_names().values():

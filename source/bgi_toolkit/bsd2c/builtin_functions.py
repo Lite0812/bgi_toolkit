@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 MAPPING_PATH = Path(__file__).resolve().parents[1] / "asdis" / "resources" / "bss_mapping.json"
 DEFINITIONS_PATH = Path(__file__).with_name("builtin_defs.json")
-RAW_OPCODE_RE = re.compile(r"f_([0-9a-fA-F]{3,})\Z")
+RAW_OPCODE_RE = re.compile(r"(?:(?:sys_|msg_|snd_|grp_|slct)::)?f_([0-9a-fA-F]{3,})\Z")
 
 
 def normalize_opcode(name: str) -> str | None:

@@ -28,7 +28,6 @@ from .emitter import (
     collect_function_local_array_sizes,
     collect_non_cfg_label_refs,
     evaluate_int_constant,
-    expr_precedence,
     match_local_array_index,
     match_select_setup,
     should_wrap_child_for_clarity,
@@ -99,6 +98,15 @@ SWAPPED_COMPARE_OPS = {
 PYTHON_BINARY_OPS = {
     "&&": "and",
     "||": "or",
+}
+
+# Python puts comparisons below bitwise operations and ``not`` below both.
+# Reusing C precedence can change the expression or produce ``a & not b``.
+PYTHON_BINARY_PRECEDENCE = {
+    "||": 1, "&&": 2,
+    "==": 4, "!=": 4, "<": 4, "<=": 4, ">": 4, ">=": 4,
+    "|": 5, "^": 6, "&": 7, "<<": 8, ">>": 8,
+    "+": 9, "-": 9, "*": 10, "/": 10, "%": 10,
 }
 
 REGISTERED_LABEL_SPECIAL_NAMES = {"_BS5HExit", "FButtonWait"}
@@ -347,6 +355,26 @@ class RpyEmitter:
 
     def _python_helper_definition_lines(self) -> list[str]:
         lines: list[str] = []
+        for helper, operator in (("bgi_bool_and", "and"), ("bgi_bool_or", "or")):
+            if helper in self._required_helpers:
+                lines.extend([
+                    f"def {helper}(left, right):",
+                    f"    return int(left != 0 {operator} right != 0)",
+                    "",
+                ])
+        if "bgi_div" in self._required_helpers:
+            lines.extend([
+                "def bgi_div(left, right):",
+                "    quotient = abs(left) // abs(right)",
+                "    return -quotient if (left < 0) != (right < 0) else quotient",
+                "",
+            ])
+        if "bgi_mod" in self._required_helpers:
+            lines.extend([
+                "def bgi_mod(left, right):",
+                "    return left - bgi_div(left, right) * right",
+                "",
+            ])
         if "bgi_signed8" in self._required_helpers:
             lines.extend(
                 [
@@ -476,8 +504,7 @@ class RpyEmitter:
         preserved_labels: set[str] = set()
         registered_names = self.project_context.registered_names_by_script.get(derive_script_name(self.script_name), ())
         for registered_name in registered_names:
-            alias = self._registered_label_alias(registered_name)
-            mapped_label = self._active_registered_label_map.get(alias)
+            mapped_label = self._active_registered_label_map.get(registered_name)
             if mapped_label is not None:
                 preserved_labels.add(mapped_label)
         return preserved_labels
@@ -1423,6 +1450,10 @@ class RpyEmitter:
         if special_assignment is not None:
             return special_assignment
         prefix = "" if python_mode else "$ "
+        if isinstance(target, DerefExpr):
+            local_array_access = match_local_array_index(target.address)
+            if local_array_access is None or local_array_access[0] not in self._active_array_sizes:
+                return f"{prefix}set_deref({self._render_expr(target.address)}, {target.size}, {self._render_expr(value)})"
         return f"{prefix}{self._render_expr(target)} = {self._render_expr(value)}"
 
     def _render_work_store_assignment(self, target: Expr, value: Expr, python_mode: bool = False) -> str | None:
@@ -1590,8 +1621,18 @@ class RpyEmitter:
                     return f"local_{offset}[{self._render_expr(index_expr)}]"
             return f"deref({self._render_expr(expr.address)}, {expr.size})"
         if isinstance(expr, BinaryExpr):
+            if expr.op in {"&&", "||"}:
+                # VM operands are already evaluated on the stack. A helper
+                # preserves both evaluations and returns a numeric 0 or 1.
+                helper = "bgi_bool_and" if expr.op == "&&" else "bgi_bool_or"
+                self._required_helpers.add(helper)
+                return f"{helper}({self._render_expr(expr.left)}, {self._render_expr(expr.right)})"
+            if expr.op in {"/", "%"}:
+                helper = "bgi_div" if expr.op == "/" else "bgi_mod"
+                self._required_helpers.update({"bgi_div", helper})
+                return f"{helper}({self._render_expr(expr.left)}, {self._render_expr(expr.right)})"
             operator = PYTHON_BINARY_OPS.get(expr.op, expr.op)
-            precedence = expr_precedence(expr)
+            precedence = self._expr_precedence(expr)
             left = self._render_expr_with_parent(expr.left, precedence)
             right = self._render_expr_with_parent(expr.right, precedence, is_right_child=True)
             if should_wrap_left_equal_precedence_child(expr, expr.left):
@@ -1603,7 +1644,7 @@ class RpyEmitter:
             return self._wrap_rendered_expr(f"{left} {operator} {right}", precedence)
         if isinstance(expr, UnaryExpr):
             if expr.op == "!":
-                return self._wrap_rendered_expr(f"not {self._wrap_expr(expr.value)}", PREFIX_PRECEDENCE)
+                return self._wrap_rendered_expr(f"not {self._wrap_expr(expr.value)}", self._expr_precedence(expr))
             return self._wrap_rendered_expr(f"{expr.op}{self._wrap_expr(expr.value)}", PREFIX_PRECEDENCE)
         if isinstance(expr, CallExpr):
             callee = self._sanitize_callable_name(expr.callee)
@@ -1649,9 +1690,11 @@ class RpyEmitter:
     def _expr_precedence(self, expr: Expr) -> int:
         expr = self._simplify_expr(expr)
         if isinstance(expr, BinaryExpr):
-            return expr_precedence(expr)
+            if expr.op in {"/", "%", "&&", "||"}:
+                return ATOM_PRECEDENCE
+            return PYTHON_BINARY_PRECEDENCE.get(expr.op, ATOM_PRECEDENCE)
         if isinstance(expr, UnaryExpr):
-            return PREFIX_PRECEDENCE
+            return 3 if expr.op == "!" else PREFIX_PRECEDENCE
         return ATOM_PRECEDENCE
 
     def _render_case_value(self, value: int | str) -> str:
@@ -1677,7 +1720,7 @@ class RpyEmitter:
             value = self._simplify_expr(expr.value)
             if expr.op == "!":
                 if isinstance(value, UnaryExpr) and value.op == "!":
-                    return value.value
+                    return self._simplify_expr(BinaryExpr("!=", value.value, IntLiteral(0)))
                 if isinstance(value, BinaryExpr) and value.op in NEGATED_COMPARE_OPS:
                     return self._simplify_expr(BinaryExpr(NEGATED_COMPARE_OPS[value.op], value.left, value.right))
             constant = evaluate_int_constant(UnaryExpr(expr.op, value))
@@ -1728,19 +1771,15 @@ class RpyEmitter:
             if expr.op in {"<<", ">>"} and evaluate_int_constant(right) == 0:
                 return left
             if expr.op == "&&":
-                if evaluate_int_constant(left) == 0 or evaluate_int_constant(right) == 0:
-                    return IntLiteral(0)
                 if evaluate_int_constant(left) == 1:
-                    return right
+                    return self._simplify_expr(BinaryExpr("!=", right, IntLiteral(0)))
                 if evaluate_int_constant(right) == 1:
-                    return left
+                    return self._simplify_expr(BinaryExpr("!=", left, IntLiteral(0)))
             if expr.op == "||":
-                if evaluate_int_constant(left) == 1 or evaluate_int_constant(right) == 1:
-                    return IntLiteral(1)
                 if evaluate_int_constant(left) == 0:
-                    return right
+                    return self._simplify_expr(BinaryExpr("!=", right, IntLiteral(0)))
                 if evaluate_int_constant(right) == 0:
-                    return left
+                    return self._simplify_expr(BinaryExpr("!=", left, IntLiteral(0)))
             return BinaryExpr(expr.op, left, right)
         if isinstance(expr, CallExpr):
             return CallExpr(expr.callee, tuple(self._simplify_expr(arg) for arg in expr.args), expr.builtin_opcode)
@@ -1826,14 +1865,27 @@ class RpyEmitter:
 
     def _build_registered_label_map(self, function: Function, label_map: dict[str, str]) -> dict[str, str]:
         registered_label_map: dict[str, str] = {}
-        for raw_label, alias in self._collect_registered_label_aliases(function).items():
-            mapped_label = label_map.get(raw_label)
-            if mapped_label is not None:
-                previous = registered_label_map.get(alias)
-                if previous is None:
-                    registered_label_map[alias] = mapped_label
-                elif previous != mapped_label:
-                    registered_label_map.pop(alias, None)
+        blocked_names: set[str] = set()
+        indices = {block.label: index for index, block in enumerate(function.blocks)}
+        for index, block in enumerate(function.blocks):
+            branch = block.terminator
+            if not isinstance(branch, BranchStmt) or not branch.jump_if_false:
+                continue
+            target_index = indices.get(branch.target)
+            if target_index is None or target_index >= index:
+                continue
+            name = self._extract_registered_label_argument(branch.condition)
+            mapped_label = label_map.get(branch.target)
+            if name is None or mapped_label is None or name in blocked_names:
+                continue
+            previous = registered_label_map.get(name)
+            if previous is not None and previous != mapped_label:
+                registered_label_map.pop(name, None)
+                blocked_names.add(name)
+            else:
+                # Keep the original registration as identity: Japanese names,
+                # punctuation and case can collide after label sanitization.
+                registered_label_map[name] = mapped_label
         return registered_label_map
 
     def _collect_registered_label_aliases(self, function: Function) -> dict[str, str]:
@@ -1891,9 +1943,8 @@ class RpyEmitter:
         return self._sanitize_label(registered_name)
 
     def _map_registered_label_call(self, registered_name: str, target: str, label_map: dict[str, str]) -> str:
-        alias = self._registered_label_alias(registered_name)
         if self._active_registered_label_map is not None:
-            mapped = self._active_registered_label_map.get(alias)
+            mapped = self._active_registered_label_map.get(registered_name)
             if mapped is not None:
                 return mapped
         return self._map_internal_label(target, label_map)

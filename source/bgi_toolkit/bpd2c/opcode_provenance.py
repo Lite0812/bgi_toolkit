@@ -21,7 +21,7 @@ CHECKED_RESULT_SOURCES = {
     "sys2_unimplemented_f7090_i32_string": "1400EB500",
     "sys2_unimplemented_f7080_two_strings": "1400EB480",
     "grp1_surface_capture_priority": "1400DE490",
-    "grp1_anim_object_create_get_handle": "1400D9D70",
+    "grp1_map_create": "1400D9D70",
     "grp1_text_cursor_mode_position_set": "1400D8F90 (one result per path)",
     "grp1_movie_sequence_release": "1400D6970 (one result per path)",
     "grp2_resource_unload_slot_status": "1400DE8B0 (one result per path)",

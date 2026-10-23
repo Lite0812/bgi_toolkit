@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "bgi-toolkit"
 version = "0.1.0"
 description = "BGI scripts, images with JSON metadata, ARC archives, and BF_Movie toolkit"
-readme = "README.md"
+readme = {text = "BGI scripts, images with JSON metadata, ARC archives, and BF_Movie toolkit", content-type = "text/plain"}
 requires-python = ">=3.11"
 dependencies = []
 

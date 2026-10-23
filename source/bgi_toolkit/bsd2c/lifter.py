@@ -7,6 +7,7 @@ import re
 from .asm_parser import AssemblyFunction, AssemblyModule, AsmInstruction, AsmLabel
 from .builtin_functions import builtin_resolver_scope, call_opcode, load_builtin_resolver, signature_opcode
 from .ignore_config import DEFAULT_IGNORE_BUILTIN_CONFIG, IGNORED_BUILTIN_OPCODES, IgnoreBuiltinConfig
+from .integer_semantics import trunc_div, trunc_mod
 from .ir import (
     AddressOf,
     ArgRef,
@@ -722,7 +723,7 @@ def lift_block(
             continue
 
         if opcode == "not":
-            stack.append(UnaryExpr("!", pop_expr(stack, "not")))
+            stack.append(UnaryExpr("~", pop_expr(stack, "not")))
             index += 1
             continue
 
@@ -945,19 +946,22 @@ def lift_block(
             if opcode == "f_01c" and stack and isinstance(stack[-1], StringLiteral):
                 target = stack.pop()
                 callee_name = target.value if isinstance(target, StringLiteral) else "f_01c"
-                fallback_arg_total = pending_nargs if pending_nargs is not None else len(stack)
+                fallback_arg_total = pending_nargs if pending_nargs is not None else infer_call_arg_count(stack, next_item)
                 arg_total = script_arities.get(callee_name, fallback_arg_total)
-                if arg_total < len(stack):
-                    leading_args, args = split_user_call_args(stack, arg_total)
-                    if all(isinstance(expr, CallExpr) for expr in leading_args):
-                        for expr in leading_args:
-                            block.body.append(ExprStmt(expr))
-                    else:
-                        args = [*leading_args, *args]
+                signature = script_signatures.get(callee_name)
+                returns_value = signature is None or signature.returns_value
+                # Like a local call, an imported function consumes its own
+                # arguments, leaving an assignment address or outer operands
+                # below them. Do not turn that address into an extra argument.
+                args = consume_user_call_args(stack, arg_total)
+                call_expr = CallExpr(callee=callee_name, args=tuple(args), builtin_opcode="")
+                if returns_value and infer_result_usage(len(stack), instructions, following_index, builtin_signatures):
+                    stmt, result_expr = None, call_expr
                 else:
-                    args = consume_user_call_args(stack, arg_total)
-                stmt = ExprStmt(CallExpr(callee=callee_name, args=tuple(args), builtin_opcode=""))
-                result_expr = None
+                    if stack and all(isinstance(expr, CallExpr) for expr in stack):
+                        block.body.extend(ExprStmt(expr) for expr in stack)
+                        stack.clear()
+                    stmt, result_expr = ExprStmt(call_expr), None
             else:
                 stmt, result_expr = lift_direct_call(
                     item,
@@ -1095,9 +1099,9 @@ def evaluate_int_constant(expr: Expr) -> int | None:
     if expr.op == "*":
         return left * right
     if expr.op == "/" and right != 0:
-        return left // right
+        return trunc_div(left, right)
     if expr.op == "%" and right != 0:
-        return left % right
+        return trunc_mod(left, right)
     if expr.op == "<<":
         return left << right
     if expr.op == ">>":
@@ -1781,7 +1785,7 @@ def simplify_dataflow_expr(expr: Expr) -> Expr:
         if expr.op == "+":
             return value
         if expr.op == "!" and isinstance(value, UnaryExpr) and value.op == "!":
-            return value.value
+            return simplify_dataflow_expr(BinaryExpr("!=", value.value, IntLiteral(0)))
         return UnaryExpr(expr.op, value)
     if isinstance(expr, BinaryExpr):
         left = simplify_dataflow_expr(expr.left)
@@ -1822,19 +1826,15 @@ def simplify_dataflow_expr(expr: Expr) -> Expr:
             if is_int_literal_value(left, 0) or is_int_literal_value(right, 0):
                 return IntLiteral(0)
         if expr.op == "&&":
-            if is_int_literal_value(left, 0) or is_int_literal_value(right, 0):
-                return IntLiteral(0)
             if is_int_literal_value(left, 1):
-                return right
+                return simplify_dataflow_expr(BinaryExpr("!=", right, IntLiteral(0)))
             if is_int_literal_value(right, 1):
-                return left
+                return simplify_dataflow_expr(BinaryExpr("!=", left, IntLiteral(0)))
         if expr.op == "||":
-            if is_int_literal_value(left, 1) or is_int_literal_value(right, 1):
-                return IntLiteral(1)
             if is_int_literal_value(left, 0):
-                return right
+                return simplify_dataflow_expr(BinaryExpr("!=", right, IntLiteral(0)))
             if is_int_literal_value(right, 0):
-                return left
+                return simplify_dataflow_expr(BinaryExpr("!=", left, IntLiteral(0)))
         if expr.op == "==" and left == right:
             return IntLiteral(1)
         if expr.op == "!=" and left == right:
@@ -2125,9 +2125,9 @@ def evaluate_lifter_int_constant(expr: Expr) -> int | None:
     if expr.op == "*":
         return left * right
     if expr.op == "/" and right != 0:
-        return left // right
+        return trunc_div(left, right)
     if expr.op == "%" and right != 0:
-        return left % right
+        return trunc_mod(left, right)
     if expr.op == "<<":
         return left << right
     if expr.op == ">>":
