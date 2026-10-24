@@ -55,6 +55,8 @@ def detect_input(path: str | Path) -> InputKind:
             return InputKind.IMAGE
 
     name = candidate.name.lower()
+    if candidate.suffix.lower() in ('._bsi', '.bsi'):
+        return InputKind.BSI
     if candidate.suffix.lower() in ('.wav', '.ogg', '.oga', '.opus', '.mp3', '.flac', '.m4a', '.aac', '.aif', '.aiff', '.bw', '._bw'):
         return InputKind.AUDIO
     if candidate.suffix.lower() in ('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.webp', '.tif', '.tiff', '.cbg'):
@@ -98,6 +100,7 @@ NON_STORY_RESOURCES = {
     InputKind.SCENARIO_DB: ('ScenarioDB 数据库', '数据库工具'),
     InputKind.STRINGS_DB: ('StringsDB 数据库', '数据库工具'),
     InputKind.GDB: ('GDB 存档数据库', 'GDB 工具'),
+    InputKind.BSI: ('BSI 字符串表', 'BSI 工具'),
     InputKind.ARCHIVE: ('ARC 封包', '封包工具'),
     InputKind.PACKED_RESOURCE: ('DSC / BSE / SDC 封装资源', '封包工具先解包，再按资源类型处理'),
     InputKind.MOVIE: ('BM 动画', 'BM 工具'),

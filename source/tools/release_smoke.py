@@ -75,13 +75,12 @@ def run(report_path=None):
             assert options.encoding == 'cp932'
             translation = root / 'dialog.json'
             extract_dialog_json_from_script(binary, translation)
-            metadata = json.loads(Path(str(translation)+'.meta.json').read_text(encoding='utf-8'))
-            assert metadata == {'format': 'bgi-dialog-metadata', 'version': 2,
-                                'rules': [], 'entry_count': 1}, metadata
+            assert not Path(str(translation)+'.meta.json').exists()
             original.write_text(source.replace('本文', '別の本文'), encoding='utf-8')
             assemble_story(original, binary, options)
             # Old sidecars must also ignore their former source fingerprint.
-            metadata['source_sha256'] = 'obsolete'
+            metadata = {'format': 'bgi-dialog-metadata', 'version': 2,
+                        'rules': [], 'entry_count': 1, 'source_sha256': 'obsolete'}
             Path(str(translation)+'.meta.json').write_text(json.dumps(metadata), encoding='utf-8')
             import_dialog_json_to_script(binary, translation, root/'rebuilt')
             disassemble_story(root/'rebuilt', assembly, options, use_function_names=False)
@@ -148,6 +147,23 @@ def run(report_path=None):
                 assert (root/'rebuilt'/path.name).read_bytes() == path.read_bytes()
         return '64/128-byte ScenarioDB and StringsDB export/rebuild byte-for-byte round trips'
 
+    def bsi():
+        from bgi_toolkit.bsi_tool import build, run_bsi_task
+        blocks = {'[name]': {'原名': '译名'}, 'JA_01': {'000000': '本文', '000001': ''}}
+        data = build(blocks)
+        with tempfile.TemporaryDirectory(prefix='bgi_release_bsi_') as folder:
+            root = Path(folder)
+            source = root/'sc._bsi'
+            source.write_bytes(data)
+            exported = run_bsi_task('export', source, log=lambda _: None)
+            assert exported.succeeded == 1 and not exported.errors, exported
+            assert json.loads(exported.outputs[0].read_text(encoding='utf-8')) == blocks
+            assert not Path(str(exported.outputs[0])+'.meta.json').exists()
+            rebuilt = run_bsi_task('build', exported.outputs[0], root/'rebuilt._bsi', log=lambda _: None)
+            assert rebuilt.succeeded == 1 and not rebuilt.errors, rebuilt
+            assert rebuilt.outputs[0].read_bytes() == data
+        return 'BSI UTF-8 JSON export/rebuild byte-for-byte round trip without meta'
+
     def acceleration():
         import cv2
         import numpy as np
@@ -193,7 +209,7 @@ def run(report_path=None):
         app.setOrganizationName('BGI Toolkit')
         app.setStyle('Fusion')
         window = MainWindow()
-        assert len(window.tool_windows) == 13
+        assert len(window.tool_windows) == 14
         assert not window.bm_window.remove_black_bg_checkbox.isChecked()
         assert not window.bm_window.remove_black_bg_32_checkbox.isChecked()
         assert len(load_catalog('en')) > 100
@@ -216,9 +232,9 @@ def run(report_path=None):
         assert app.exec() == 0
         window.close()
         app.processEvents()
-        return 'all 13 tools selected with fixed tab bars; Qt event loop and English catalog loaded'
+        return 'all 14 tools selected with fixed tab bars; Qt event loop and English catalog loaded'
 
-    for name, function in [('mapping', mapping), ('native', native), ('scripts', scripts), ('compression', compression), ('databases', databases),
+    for name, function in [('mapping', mapping), ('native', native), ('scripts', scripts), ('compression', compression), ('databases', databases), ('bsi', bsi),
                            ('acceleration', acceleration), ('process_pool', processes),
                            ('audio', audio), ('gui', gui)]:
         check(name, function)

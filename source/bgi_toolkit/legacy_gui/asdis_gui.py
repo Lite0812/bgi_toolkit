@@ -720,7 +720,6 @@ class WorkerThread(QThread):
                     user_function_names=self.user_function_names
                 )
             print(tr('已提取对话 {0} 条 -> {1}', count, outfile))
-            print(tr('文本定位元数据 -> {0}.meta.json', outfile))
         elif self.mode == 'txt_extract':
             version = self._resolve_script_version(infile)
             self._batch_stats[version] += 1
@@ -733,7 +732,6 @@ class WorkerThread(QThread):
                     user_function_names=self.user_function_names
                 )
             print(tr('已提取对话 {0} 条，文本单元 {1} 条 -> {2}', count, units, outfile))
-            print(tr('文本定位元数据 -> {0}.meta.json', outfile))
         elif self.mode == 'json_import':
             if not dialog_file or not os.path.isfile(dialog_file):
                 raise Exception(tr('JSON 文件不存在: {0}', dialog_file))

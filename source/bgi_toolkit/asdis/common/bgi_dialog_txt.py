@@ -6,7 +6,6 @@ import tempfile
 from .bgi_dialog_json import (
     extract_dialog_entries,
     analyze_calls,
-    write_dialog_metadata,
     entries_for_import,
     apply_dialog_replacements,
     extract_push_string_entries_from_bpd,
@@ -80,7 +79,6 @@ def extract_dialog_txt_from_bsd(input_path, output_txt, user_function_names=None
         os.makedirs(out_dir, exist_ok=True)
     with open(output_txt, 'w', encoding='utf-8') as f:
         f.writelines(out_lines)
-    write_dialog_metadata(output_txt, lines, entries, user_function_names, calls=calls)
     return len(entries), len(units)
 
 def extract_push_string_txt_from_bpd(input_path, output_txt):

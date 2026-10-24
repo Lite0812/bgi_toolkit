@@ -126,6 +126,12 @@ def build_parser() -> argparse.ArgumentParser:
     for operation in ("export", "build", "check"):
         add_conversion_arguments(db_commands.add_parser(operation), operation)
 
+    bsi_parser = subparsers.add_parser('bsi', help='BP2 BSI 字符串表与 JSON 互转及无损验证')
+    bsi_commands = bsi_parser.add_subparsers(dest='bsi_command', required=True)
+    from .bsi_tool import add_conversion_arguments as add_bsi_arguments
+    for operation in ('export', 'build', 'check'):
+        add_bsi_arguments(bsi_commands.add_parser(operation), operation)
+
     audio_parser = subparsers.add_parser('audio', help='BGI BW 原音频导出与常见音频格式转换')
     audio_commands = audio_parser.add_subparsers(dest='audio_command', required=True)
     for operation in ('export', 'convert', 'info'):
@@ -364,6 +370,17 @@ def main(argv: list[str] | None = None) -> int:
                 output_format=args.command, format_filter=args.command)
             return 1 if result.errors or result.cancelled else 0
         except (OSError, ValueError) as error:
+            print(f'error: {error}', file=sys.stderr)
+            return 2
+
+    if args.command == 'bsi':
+        from .bsi_tool import run_bsi_task
+        try:
+            result = run_bsi_task(args.bsi_command, args.input, getattr(args, 'output', None),
+                force=getattr(args, 'force', False), recursive=not args.no_recursive,
+                require_complete=getattr(args, 'require_complete', False))
+            return 1 if result.errors or result.cancelled else 0
+        except (OSError, ValueError, UnicodeError) as error:
             print(f'error: {error}', file=sys.stderr)
             return 2
 

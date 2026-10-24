@@ -14,6 +14,7 @@ class InputKind(str, Enum):
     BP_BINARY = "bp-binary"
     BPD = "bpd"
     GDB = "gdb"
+    BSI = "bsi"
     SCENARIO_DB = "scenario-db"
     STRINGS_DB = "strings-db"
     IMAGE = "image"

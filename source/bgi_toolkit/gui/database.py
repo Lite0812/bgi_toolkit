@@ -14,6 +14,7 @@ from .gdb import DropPathEdit
 
 
 class DatabaseWorker(QThread):
+    task_runner = staticmethod(run_db_task)
     log_signal = pyqtSignal(str)
     completed = pyqtSignal(object)
     failed = pyqtSignal(str)
@@ -25,7 +26,8 @@ class DatabaseWorker(QThread):
 
     def run(self):
         try:
-            result = run_db_task(self.operation, self.source, self.output, kind=self.kind,
+            options = {'kind': self.kind} if self.kind is not None else {}
+            result = self.task_runner(self.operation, self.source, self.output, **options,
                 force=self.force, recursive=self.recursive, log=self.log_signal.emit,
                 cancelled=self.isInterruptionRequested)
             self.completed.emit(result)
@@ -35,6 +37,17 @@ class DatabaseWorker(QThread):
 
 
 class DatabaseToolWidget(QWidget):
+    settings_filename = 'database.ini'
+    worker_class = DatabaseWorker
+    default_output = staticmethod(default_output)
+    kind_choices = ('ScenarioDB', 'StringsDB')
+    task_titles = ('导出 JSON', '重建数据库', '检查与验证')
+    input_placeholder = '拖入数据库、JSON 或所在目录'
+    descriptions = {
+        'export': '读取 ARC 解包后的 ScenarioDB / StringsDB，导出可编辑的 UTF-8 JSON。选择目录可同时处理两种数据库。',
+        'build': '从 JSON 读取数据库类型，重建游戏资源。单文件默认生成 .rebuilt；目录批处理会在输出目录恢复原文件名。',
+        'check': '检查数据库结构，再执行“二进制 → JSON → 二进制”，确认重建结果与原文件逐字节一致。'}
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setAcceptDrops(True)
@@ -42,13 +55,13 @@ class DatabaseToolWidget(QWidget):
         self._pages = {}
         folder = Path(QStandardPaths.writableLocation(QStandardPaths.StandardLocation.AppConfigLocation)) / 'bgi_toolkit'
         folder.mkdir(parents=True, exist_ok=True)
-        self.settings = QSettings(str(folder/'database.ini'), QSettings.Format.IniFormat)
+        self.settings = QSettings(str(folder/self.settings_filename), QSettings.Format.IniFormat)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(12, 8, 12, 12)
         splitter = QSplitter(Qt.Orientation.Vertical)
         self.task_tabs = QTabWidget()
-        for operation, title in (('export', tr('导出 JSON')), ('build', tr('重建数据库')), ('check', tr('检查与验证'))):
-            ui_call(self.task_tabs, 'addTab', self._page(operation), title)
+        for operation, title in zip(('export', 'build', 'check'), self.task_titles):
+            ui_call(self.task_tabs, 'addTab', self._page(operation), tr(title))
         splitter.addWidget(self.task_tabs)
         self.log_view = QTextEdit()
         self.log_view.setReadOnly(True)
@@ -64,11 +77,7 @@ class DatabaseToolWidget(QWidget):
         layout = QVBoxLayout(page)
         layout.setContentsMargins(12, 12, 12, 12)
         layout.setSpacing(10)
-        descriptions = {
-            'export': tr('读取 ARC 解包后的 ScenarioDB / StringsDB，导出可编辑的 UTF-8 JSON。选择目录可同时处理两种数据库。'),
-            'build': tr('从 JSON 读取数据库类型，重建游戏资源。单文件默认生成 .rebuilt；目录批处理会在输出目录恢复原文件名。'),
-            'check': tr('检查数据库结构，再执行“二进制 → JSON → 二进制”，确认重建结果与原文件逐字节一致。')}
-        hint = ui_widget(QLabel, descriptions[operation])
+        hint = ui_widget(QLabel, tr(self.descriptions[operation]))
         hint.setObjectName('TipLabel')
         hint.setWordWrap(True)
         layout.addWidget(hint)
@@ -77,7 +86,7 @@ class DatabaseToolWidget(QWidget):
         form.setVerticalSpacing(12)
         form.setFieldGrowthPolicy(QFormLayout.FieldGrowthPolicy.AllNonFixedFieldsGrow)
         source = DropPathEdit()
-        ui_call(source, 'setPlaceholderText', tr('拖入数据库、JSON 或所在目录'))
+        ui_call(source, 'setPlaceholderText', tr(self.input_placeholder))
         ui_call(source, 'setText', self.settings.value(f'{operation}/input', '', str))
         input_row = QHBoxLayout()
         input_row.addWidget(source, 1)
@@ -99,11 +108,11 @@ class DatabaseToolWidget(QWidget):
             output_row.addWidget(output_button)
             ui_call(form, 'addRow', tr('输出路径'), output_row)
         kind = None
-        if operation != 'build':
+        if operation != 'build' and self.kind_choices:
             kind = QComboBox()
             ui_call(kind, 'addItem', tr('自动识别'), None)
-            ui_call(kind, 'addItem', 'ScenarioDB', 'ScenarioDB')
-            ui_call(kind, 'addItem', 'StringsDB', 'StringsDB')
+            for choice in self.kind_choices:
+                ui_call(kind, 'addItem', choice, choice)
             saved = self.settings.value(f'{operation}/kind', '', str)
             kind.setCurrentIndex(max(0, kind.findData(saved or None)))
             kind.setMinimumWidth(150)
@@ -124,7 +133,7 @@ class DatabaseToolWidget(QWidget):
         options.addStretch()
         ui_call(form, 'addRow', tr('类型') if kind is not None else tr('选项'), options)
         row = QHBoxLayout()
-        title = {'export':tr('导出 JSON'), 'build':tr('重建数据库'), 'check':tr('验证无损往返')}[operation]
+        title = tr('验证无损往返') if operation == 'check' else tr(self.task_titles[('export', 'build').index(operation)])
         run = ui_widget(QPushButton, title)
         run.setObjectName('PrimaryButton')
         run.clicked.connect(lambda: self._start(operation))
@@ -161,7 +170,7 @@ class DatabaseToolWidget(QWidget):
         output = controls['output']
         if output is not None and not controls['manual_output']:
             text = controls['input'].text().strip()
-            target = default_output(Path(text), operation) if text else None
+            target = self.default_output(Path(text), operation) if text else None
             ui_call(output, 'setText', str(target) if target is not None else '')
 
     def _browse(self, operation, save, directory):
@@ -211,7 +220,7 @@ class DatabaseToolWidget(QWidget):
         self._save_settings()
         self._operation = operation
         output = controls['output'].text().strip() if controls['output'] is not None else None
-        self.worker = DatabaseWorker(operation, source, output,
+        self.worker = self.worker_class(operation, source, output,
             kind=controls['kind'].currentData() if controls['kind'] is not None else None,
             force=controls['force'].isChecked() if controls['force'] is not None else False,
             recursive=controls['recursive'].isChecked(), parent=self)

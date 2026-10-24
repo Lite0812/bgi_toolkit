@@ -311,7 +311,6 @@ def extract_dialog_json_from_bsd(input_path, output_json, user_function_names=No
         os.makedirs(out_dir, exist_ok=True)
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
-    write_dialog_metadata(output_json, lines, entries, user_function_names, calls=calls)
     return len(entries)
 
 def extract_push_string_entries_from_bpd(lines):

@@ -610,8 +610,6 @@ class ToolkitRunner:
             count, _ = extract_push_string_txt_from_bpd(intermediate, destination)
         self.log(f"Extracted {count} text entries")
         artifacts.append(Artifact(request.text_format.value, destination, source))
-        if kind in {InputKind.STORY_BINARY, InputKind.BSD}:
-            artifacts.append(Artifact("dialog-metadata", Path(str(destination) + ".meta.json"), source))
         return artifacts
 
     def _resolve_translation(

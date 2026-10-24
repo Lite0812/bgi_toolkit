@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import (QAbstractButton, QApplication, QButtonGroup, QCheck
 from ..legacy_gui import asdis_gui, bsd_gui, bpd_gui
 from .gdb import GdbToolWidget
 from .database import DatabaseToolWidget
+from .bsi import BsiToolWidget
 from .audio import AudioToolWidget
 from .anmdef import AnmdefToolWidget
 from .assets import AssetToolWidget, BmToolWindow
@@ -38,7 +39,8 @@ TOOLS = (
     ('数据库工具', '数据与定义', 'ScenarioDB / StringsDB 与 JSON 互转及无损验证。'),
     ('音频工具', '资源与媒体', 'BGI BW 与 WAV / FLAC / OGG / MP3 等音频互转。'),
     ('SDC 工具', '资源与媒体', 'SDC 解压与压缩，支持单文件、目录及封装信息回写。'),
-    ('DSC 工具', '资源与媒体', 'DSC 解压与压缩，支持单文件、目录及封装信息回写。'))
+    ('DSC 工具', '资源与媒体', 'DSC 解压与压缩，支持单文件、目录及封装信息回写。'),
+    ('BSI 工具', '数据与定义', 'BP2 BSI 字符串表与 JSON 互转及无损验证。'))
 
 class ToolNavigation(QWidget):
     currentChanged = pyqtSignal(int)
@@ -48,7 +50,7 @@ class ToolNavigation(QWidget):
         self._group = QButtonGroup(self)
         self._group.idClicked.connect(self.setCurrentIndex)
         layout = QVBoxLayout(self); layout.setContentsMargins(12, 0, 12, 0); layout.setSpacing(3)
-        for category, indices in ((tr('脚本与文本'), (0,8,1,2)), (tr('资源与媒体'), (5,10,6,11,12,7)), (tr('数据与定义'), (3,9,4))):
+        for category, indices in ((tr('脚本与文本'), (0,8,1,2)), (tr('资源与媒体'), (5,10,6,11,12,7)), (tr('数据与定义'), (3,9,13,4))):
             label = ui_widget(QLabel, category); label.setObjectName('NavigationGroup'); layout.addWidget(label)
             for index in indices:
                 button = ui_widget(QPushButton, tr(TOOLS[index][0])); button.setObjectName('ToolNavigationButton')
@@ -95,8 +97,9 @@ class MainWindow(QMainWindow):
         self.audio_widget = AudioToolWidget(ffmpeg_path=self.bm_window.ffmpeg_edit.text())
         self.sdc_widget = AssetToolWidget('sdc')
         self.dsc_widget = AssetToolWidget('dsc')
+        self.bsi_widget = BsiToolWidget()
         self.tool_windows = (self.asdis_window, self.bsd_window, self.bpd_window, self.gdb_widget,
-            self.anmdef_widget, self.image_widget, self.archive_widget, self.bm_window, self.bp_window, self.database_widget, self.audio_widget, self.sdc_widget, self.dsc_widget)
+            self.anmdef_widget, self.image_widget, self.archive_widget, self.bm_window, self.bp_window, self.database_widget, self.audio_widget, self.sdc_widget, self.dsc_widget, self.bsi_widget)
         self._build_shell(); self._embed_tools()
         self.tool_tabs.currentChanged.connect(self._select_tool); self.tool_tabs.setCurrentIndex(0)
         theme = self.settings.value('ui/theme', '跟随系统', str)
